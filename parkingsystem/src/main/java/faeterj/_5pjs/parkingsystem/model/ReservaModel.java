@@ -2,12 +2,18 @@ package faeterj._5pjs.parkingsystem.model;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-
 import faeterj._5pjs.parkingsystem.enums.ReservaState;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ReservaModel{
-    private Long id; // id da tb_reserva
+    private int reserva_id;
     private LocalDateTime horarioEntrada;
     private LocalDateTime horarioSaida;
     private double tarifa;
@@ -24,13 +30,5 @@ public class ReservaModel{
         long horas = diferenca.toHours();
         //System.out.println(horas);
         return horas * tarifa;
-
-    }
-
-
-    public static void main(String[] args) {
-        ReservaModel reservaModel = new ReservaModel();
-
-        System.out.println(reservaModel.calcularTarifa());
     }
 }
