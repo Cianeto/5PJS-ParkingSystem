@@ -1,6 +1,6 @@
 package faeterj._5pjs.parkingsystem.enums;
 
-public enum VagaState {
+public enum VagaStatus {
 
     LIVRE,
     OCUPADA

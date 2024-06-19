@@ -1,6 +1,6 @@
 package faeterj._5pjs.parkingsystem.enums;
 
-public enum ReservaState {
+public enum ReservaStatus {
 
     AGENDADA,
     EM_ANDAMENTO,

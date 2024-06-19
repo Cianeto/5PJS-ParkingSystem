@@ -14,5 +14,4 @@ public class ClienteModel {
     private String cpf;
     private String nome;
     private String telefone;
-    private VeiculoModel veiculo;
 }

@@ -11,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class VeiculoModel {
     private int veiculo_id;
-    private String placa;
     private String modelo;
+    private String placa;
     private String porte;
 }

@@ -2,7 +2,7 @@ package faeterj._5pjs.parkingsystem.model;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import faeterj._5pjs.parkingsystem.enums.ReservaState;
+import faeterj._5pjs.parkingsystem.enums.ReservaStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,9 +17,8 @@ public class ReservaModel{
     private LocalDateTime horarioEntrada;
     private LocalDateTime horarioSaida;
     private double tarifa;
-    private ReservaState reservaStatus;
-    private VagaModel vagaStatus;
-    private ClienteModel cliente;
+    private ReservaStatus reservaStatus;
+    private VagaModel vaga;
     
 
     public double calcularTarifa(){

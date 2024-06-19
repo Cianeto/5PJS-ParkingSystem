@@ -1,6 +1,6 @@
 package faeterj._5pjs.parkingsystem.model;
 
-import faeterj._5pjs.parkingsystem.enums.VagaState;
+import faeterj._5pjs.parkingsystem.enums.VagaStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,5 +12,5 @@ import lombok.Setter;
 @AllArgsConstructor
 public class VagaModel {
     private int vaga_id;
-    private VagaState status;
+    private VagaStatus status;
 }
