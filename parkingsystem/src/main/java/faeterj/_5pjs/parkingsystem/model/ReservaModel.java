@@ -2,7 +2,9 @@ package faeterj._5pjs.parkingsystem.model;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+
 import faeterj._5pjs.parkingsystem.enums.ReservaStatus;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,6 +13,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

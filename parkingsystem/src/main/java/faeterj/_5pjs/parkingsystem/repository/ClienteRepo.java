@@ -7,5 +7,9 @@ import faeterj._5pjs.parkingsystem.model.ClienteModel;
 
 @Repository
 public interface ClienteRepo extends JpaRepository<ClienteModel, Integer>{
-    
+    /*
+     * INSERT INTO
+     * 
+     * 
+    */
 }
