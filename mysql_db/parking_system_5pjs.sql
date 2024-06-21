@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jun 19, 2024 at 07:10 PM
+-- Generation Time: Jun 21, 2024 at 08:07 PM
 -- Server version: 8.3.0
 -- PHP Version: 8.2.18
 
@@ -53,8 +53,8 @@ CREATE TABLE IF NOT EXISTS `tb_reservas` (
   `vaga_id` int NOT NULL,
   `veiculo_id` int NOT NULL,
   PRIMARY KEY (`reserva_id`),
-  KEY `fk_reserva_vaga` (`vaga_id`),
-  KEY `fk_reserva_veiculo` (`veiculo_id`)
+  UNIQUE KEY `veiculo_id` (`veiculo_id`),
+  KEY `fk_reserva_vaga` (`vaga_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
