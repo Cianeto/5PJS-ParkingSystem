@@ -23,10 +23,12 @@ public class ClienteModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer cliente_id;
 
-    @Column(unique = true)
-    private String cpf;
-
+    @Column(nullable = false)
     private String nome;
 
+    @Column(unique = true, nullable = false)
+    private String cpf;
+
+    @Column(nullable = false)
     private String telefone;
 }

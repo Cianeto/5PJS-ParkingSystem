@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jun 21, 2024 at 08:07 PM
+-- Generation Time: Jun 21, 2024 at 09:13 PM
 -- Server version: 8.3.0
 -- PHP Version: 8.2.18
 
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `tb_clientes` (
   `cliente_id` int NOT NULL AUTO_INCREMENT,
   `nome` varchar(255) NOT NULL,
   `cpf` varchar(14) NOT NULL,
-  `telefone` varchar(20) DEFAULT NULL,
+  `telefone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`cliente_id`),
   UNIQUE KEY `cpf` (`cpf`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

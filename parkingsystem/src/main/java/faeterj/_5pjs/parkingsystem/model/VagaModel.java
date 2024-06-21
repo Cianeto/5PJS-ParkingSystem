@@ -24,5 +24,6 @@ public class VagaModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer vaga_id;
 
+    
     private VagaStatus status;
 }

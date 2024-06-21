@@ -10,5 +10,8 @@ public class ClienteService {
     @Autowired
     ClienteRepo repository;
 
-    
+    public void insertNewCliente(){
+        repository.save();
+    }
+
 }

@@ -27,7 +27,7 @@ public class VeiculoModel {
 
     private String modelo;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String placa;
 
     private String porte;
