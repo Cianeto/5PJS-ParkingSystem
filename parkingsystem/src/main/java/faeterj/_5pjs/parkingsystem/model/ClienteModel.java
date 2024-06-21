@@ -31,4 +31,10 @@ public class ClienteModel {
 
     @Column(nullable = false)
     private String telefone;
+
+    public ClienteModel(String nome, String cpf, String telefone){
+        this.nome = nome;
+        this.cpf = cpf;
+        this.telefone = telefone;
+    }
 }
