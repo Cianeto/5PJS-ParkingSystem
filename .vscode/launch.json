@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-ParkingsystemApplication<parkingsystem>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "faeterj._5pjs.parkingsystem.ParkingsystemApplication",
+            "projectName": "parkingsystem",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
