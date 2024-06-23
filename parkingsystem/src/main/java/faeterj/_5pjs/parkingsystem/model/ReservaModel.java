@@ -45,7 +45,6 @@ public class ReservaModel{
     @OneToOne
     @JoinColumn(name = "veiculo_id")
     private VeiculoModel veiculo;
-    
 
     public double calcularTarifa(){
         double tarifa = 10;
