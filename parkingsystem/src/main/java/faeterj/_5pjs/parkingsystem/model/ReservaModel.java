@@ -30,13 +30,13 @@ public class ReservaModel{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer reserva_id;
 
-    private LocalDateTime horarioEntrada;
+    private LocalDateTime horario_entrada;
 
-    private LocalDateTime horarioSaida;
+    private LocalDateTime horario_saida;
 
     private Double tarifa;
 
-    private ReservaStatus reservaStatus;
+    private ReservaStatus reserva_status;
 
     @ManyToOne
     @JoinColumn(name = "vaga_id")
