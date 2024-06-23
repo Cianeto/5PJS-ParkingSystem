@@ -37,4 +37,6 @@ public class ClienteModel {
         this.cpf = cpf;
         this.telefone = telefone;
     }
+
+    
 }

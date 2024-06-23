@@ -35,4 +35,6 @@ public class VeiculoModel {
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private ClienteModel cliente;
+
+    
 }
