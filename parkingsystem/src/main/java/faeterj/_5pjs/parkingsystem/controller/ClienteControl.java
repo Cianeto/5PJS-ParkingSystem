@@ -24,7 +24,7 @@ public class ClienteControl {
     private ClienteRepo clienteRepo;
 
     @GetMapping
-    public List<ClienteModel> listar (){
+    public List<ClienteModel> listar(){
         return clienteRepo.findAll();
     }
 
