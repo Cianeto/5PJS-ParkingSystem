@@ -19,7 +19,7 @@ public class ClienteService {
             System.out.println("Cliente já cadastrado.");
         }else{
             repository.save(new ClienteModel(dados.nome(), dados.cpf(), dados.telefone())); // INSERT
-            System.out.println("Novo cliente cadastrado com sucesso");
+            System.out.println("Novo cliente cadastrado com sucesso.");
         }
     }
 }
