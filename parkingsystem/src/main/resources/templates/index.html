@@ -10,9 +10,16 @@
 </head>
 <body>
 
-    <button>Cadastrar Novo Cliente</button>
+    <form action="/ClienteModel" method="post" enctype="multipart/form-data">
+        Nome:<br>
+        <input type="text" name="nome"><br>
+        CPF:<br>
+        <input type="text" name="cpf"><br>
+        Telefone<br>
+        <input type="text" name="telefone"><br>
 
-    <button>Acessar Cliente por CPF</button>
+        <button type="submit">Enviar</button>
+    </form>
 
     <h2>Lista de Clientes</h2>
     <div>
@@ -25,11 +32,6 @@
             </li>
         </ul>
     </div>
-
-    <!-- 
-        Mostrar lista de clientes
-        Cada cliente mostra as opções de acessar, editar e deletar
-     -->
 
     <!-- <script src="../static/js/index.js"></script> -->
 </body>

@@ -19,9 +19,7 @@ import faeterj._5pjs.parkingsystem.model.VeiculoModel;
 import faeterj._5pjs.parkingsystem.repository.ClienteRepo;
 import faeterj._5pjs.parkingsystem.repository.VeiculoRepo;
 
-@RestController
 @Controller
-@RequestMapping("/veiculos")
 public class VeiculoControl {
 
     @Autowired

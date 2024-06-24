@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -27,6 +28,13 @@ public class ClienteControl {
     @GetMapping("/")
     public String showClientList(Model model) {
         model.addAttribute("clientes", clienteRepo.findAll());
-        return "index"; // Name of the HTML file without the extension
+        return "index";
+    }
+
+    @PostMapping
+    public String incluir(@ModelAttribute ClienteModel clienteModel){
+        clienteRepo.save(clienteModel);
+
+        return "index.html";
     }
 }

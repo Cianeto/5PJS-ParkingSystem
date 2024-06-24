@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import faeterj._5pjs.parkingsystem.model.VagaModel;
 import faeterj._5pjs.parkingsystem.repository.VagaRepo;
 
-@RestController
 @Controller
-@RequestMapping("/vagas")
 public class VagaControl {
     
     @Autowired

@@ -20,7 +20,7 @@ import faeterj._5pjs.parkingsystem.repository.ReservaRepo;
 import faeterj._5pjs.parkingsystem.repository.VagaRepo;
 import faeterj._5pjs.parkingsystem.repository.VeiculoRepo;
 /*
- * private Integer reserva_id;
+    private Integer reserva_id;
 
     private LocalDateTime horarioEntrada;
 
@@ -38,9 +38,8 @@ import faeterj._5pjs.parkingsystem.repository.VeiculoRepo;
     @JoinColumn(name = "veiculo_id")
     private VeiculoModel veiculo;
  */
-@RestController
+
 @Controller
-@RequestMapping("/reservas")
 public class ReservaControl {
     
     @Autowired
@@ -53,7 +52,7 @@ public class ReservaControl {
     private VagaRepo vagaRepo;
 
     @GetMapping
-    public List<ReservaModel> listar(){
+    public List<ReservaModel> showReservaList(){
         return reservaRepo.findAll();
     }
 }
