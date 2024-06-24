@@ -19,13 +19,4 @@ public class VagaControl {
     @Autowired
     private VagaRepo vagaRepo;
 
-    @GetMapping
-    private List<VagaModel> listar (){
-        return vagaRepo.findAll();
-    }
-
-    @PostMapping
-    private void incluirVaga(@RequestBody VagaModel vagaModel){
-        vagaRepo.save(vagaModel);
-    }
 }

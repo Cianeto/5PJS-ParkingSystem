@@ -28,12 +28,7 @@ public class VeiculoControl {
     @Autowired
     private ClienteRepo clienteRepo;
 
-    @GetMapping
-    public List<VeiculoModel> listarVeiculos() {
-        return veiculoRepo.findAll();
-    }
-
-    @PostMapping
+    /* @PostMapping
     public void incluirVeiculo(@RequestBody VeiculoDTO veiculoDTO) {
         // Buscar o cliente no repositório
         ClienteModel cliente = clienteRepo.findById(veiculoDTO.getClienteId())
@@ -48,12 +43,6 @@ public class VeiculoControl {
 
         // Salvar o veículo
         veiculoRepo.save(veiculoModel);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleterVeiculo(@PathVariable int id){
-        veiculoRepo.deleteById(id);
-    }
-
+    } */
 
 }

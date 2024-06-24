@@ -51,8 +51,4 @@ public class ReservaControl {
     @Autowired
     private VagaRepo vagaRepo;
 
-    @GetMapping
-    public List<ReservaModel> showReservaList(){
-        return reservaRepo.findAll();
-    }
 }
