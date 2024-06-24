@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../static/images/favicon.png">
+    <meta charset="UTF-8">
+    <title>Parking System</title>
+    <!-- <link rel="stylesheet" href="../static/css/index.css"> -->
+    
+</head>
+<body>
+
+    <button>Cadastrar Novo Cliente</button>
+
+    <button>Acessar Cliente por CPF</button>
+
+    <h2>Lista de Clientes</h2>
+    <div>
+        <ul>
+            <li th:each="cliente : ${clientes}">
+                <span th:text="${cliente.cliente_id}">Nome do Cliente</span>
+                <span th:text="${cliente.nome}">Nome do Cliente</span>
+                <span th:text="${cliente.cpf}">Nome do Cliente</span>
+                <span th:text="${cliente.telefone}">Nome do Cliente</span>
+            </li>
+        </ul>
+    </div>
+
+    <!-- 
+        Mostrar lista de clientes
+        Cada cliente mostra as opções de acessar, editar e deletar
+     -->
+
+    <!-- <script src="../static/js/index.js"></script> -->
+</body>
+</html>

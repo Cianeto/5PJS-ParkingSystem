@@ -56,30 +56,4 @@ public class ReservaControl {
     public List<ReservaModel> listar(){
         return reservaRepo.findAll();
     }
-
-    @PostMapping
-    public void inserirReserva(@RequestBody ReservaDTO reservaDTO){
-        VeiculoModel veiculo = veiculoRepo.findById(reservaDTO.getVeiculo_id())
-        .orElseThrow(()-> new RuntimeException("veiculo nao encontrado"));
-
-        VagaModel vagaModel = vagaRepo.findById(reservaDTO.getVaga_id())
-        .orElseThrow(()-> new RuntimeException("Vaga nao encontrada"));
-
-        ReservaModel reservaModel = new ReservaModel();
-        reservaModel.setHorario_entrada(reservaDTO.getHorario_entrada());
-        reservaModel.setHorario_saida(reservaDTO.getHorario_saida());
-        reservaModel.setTarifa(reservaDTO.getTarifa());
-        reservaModel.setReserva_status(reservaDTO.getReserva_status());
-        reservaModel.setVaga(vagaModel);
-        reservaModel.setVeiculo(veiculo);
-
-        reservaRepo.save(reservaModel);
-
-    }
-
-    @DeleteMapping("/{id}")
-    public void deletarReserva(@PathVariable int id){
-        reservaRepo.deleteById(id);
-    }
-
 }
