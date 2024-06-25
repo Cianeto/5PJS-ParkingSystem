@@ -11,7 +11,7 @@ import faeterj._5pjs.parkingsystem.repository.ClienteRepo;
 
 @Service
 public class ClienteService {
-    
+    /*
     @Autowired
     ClienteRepo repository;
 
@@ -24,5 +24,5 @@ public class ClienteService {
             repository.save(new ClienteModel(dados.nome(), dados.cpf(), dados.telefone())); // INSERT
             System.out.println("Novo cliente cadastrado com sucesso.");
         }
-    }
+    }*/
 }

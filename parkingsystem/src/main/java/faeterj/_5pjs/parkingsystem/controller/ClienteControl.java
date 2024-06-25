@@ -9,12 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import java.util.List;
-import java.util.Optional;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import faeterj._5pjs.parkingsystem.model.ClienteModel;
 import faeterj._5pjs.parkingsystem.repository.ClienteRepo;
@@ -25,16 +20,32 @@ public class ClienteControl {
     @Autowired
     private ClienteRepo clienteRepo;
 
-    @GetMapping("/")
-    public String showClientList(Model model) {
+    // PAGINA INICIAL, MOSTRAR LISTA DE CLIENTES
+    @GetMapping("/") 
+    public String listarTodosClientes(Model model) {
         model.addAttribute("clientes", clienteRepo.findAll());
-        return "index";
+        return "ListaDeClientes";
     }
 
-    @PostMapping
-    public String incluir(@ModelAttribute ClienteModel clienteModel){
-        clienteRepo.save(clienteModel);
+    // Method to handle the form submission
+    @PostMapping("/insertCliente")
+    public String inserirNovoCliente(@ModelAttribute ClienteModel cliente) {
+        clienteRepo.save(cliente);
 
-        return "index.html";
+        return "redirect:/";
     }
+
+    // DELETAR CLIENTE
+    @PostMapping("/deleteCliente-1") 
+    public String deletarCliente(@RequestParam Integer id){
+        clienteRepo.deleteById(id);
+        return "redirect:/";
+    }
+
+    @DeleteMapping("/deleteCliente/{id}")
+    public String ddeletarCliente(@PathVariable int id){
+        clienteRepo.deleteById(id);
+        return "redirect:/";
+    }
+
 }

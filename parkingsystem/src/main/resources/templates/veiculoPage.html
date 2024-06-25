@@ -2,20 +2,44 @@
 <html lang="pt-BR">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="../static/images/favicon.png">
+    <link rel="icon" href="/favicon.png">
     <meta charset="UTF-8">
     <title>Parking System</title>
-    <!-- <link rel="stylesheet" href="../static/css/"> -->
+    <!-- <link rel="stylesheet" href="/css/"> -->
     
 </head>
 <body>
-
+    <h1>Cliente: <span th:text="${clienteId}"></span></h1>
+    
     <button>Cadastrar Novo Veículo</button>
+    <form action="/veiculo" method="post" enctype="multipart/form-data">
+        Modelo:<br>
+        <input type="text" name="modelo"><br>
+        Placa:<br>
+        <input type="text" name="placa"><br>
+        Porte (Pequeno/Médio/Grande):<br>
+        <input type="text" name="porte"><br>
+        <input type="hidden" name="clienteId" th:value="${clienteId}">
+        <button type="submit">Enviar</button>
+    </form>
+    
+    <div>
+        <ul>
+            <li th:each="veiculo : ${veiculos}">
+                <span th:text="${veiculo.veiculo_id}"></span>
+                <span th:text="${veiculo.modelo}"></span>
+                <span th:text="${veiculo.placa}"></span>
+                <span th:text="${veiculo.porte}"></span>
+                <br>
+            </li>
+        </ul>
+    </div>
+
     <!--
     * Mostrar lista de veículos desse cliente
     * Cada veículo mostra as opções de editar e deletar
     -->
 
-    <!-- <script src="../static/js/"></script> -->
+    <!-- <script src="/js/"></script> -->
 </body>
 </html>

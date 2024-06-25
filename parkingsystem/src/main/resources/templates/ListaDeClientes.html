@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/favicon.png">
+    <meta charset="UTF-8">
+    <title>Parking System</title>
+    <!-- <link rel="stylesheet" href="/css/index.css"> -->
+    
+    <style>
+        .btn {
+            display: inline-block;
+            background-color: #007bff;
+            color: white;
+            padding: 8px 12px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <form action="/insertCliente" method="post">
+        Nome:<br>
+        <input type="text" name="nome"><br>
+        CPF:<br>
+        <input type="text" name="cpf"><br>
+        Telefone:<br>
+        <input type="text" name="telefone"><br>
+        <button type="submit">Enviar</button>
+    </form>
+
+    <h2>Lista de Clientes</h2>
+    <div>
+        <ul>
+            <li th:each="cliente : ${clientes}">
+                <span th:text="${cliente.cliente_id}">Nome do Cliente</span>
+                <span th:text="${cliente.nome}">Nome do Cliente</span>
+                <span th:text="${cliente.cpf}">Nome do Cliente</span>
+                <span th:text="${cliente.telefone}">Nome do Cliente</span>
+                <a class="btn" th:href="@{/veiculoPage(clienteId=${cliente.cliente_id})}">Veiculos</a>
+                <button class="btn" th:onclick="'deleteCliente(' + ${cliente.cliente_id} + ');'">Delete</button>
+                <!-- <form th:action="@{/deleteCliente-1}" method="post">
+                    <input type="hidden" name="id" th:value="${cliente.cliente_id}" />
+                    <button type="submit" class="btn">Excluir</button>
+                </form> -->
+                <br><br>
+
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        function deleteCliente(id) {
+            console.log(id);
+            fetch('/deleteCliente/' + id, {method: 'DELETE'})
+            .then(response => {
+                if(response.ok) {
+                    console.log('Cliente deleted successfully');
+                    window.location.reload(); // Optionally reload the page or redirect
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+    <!-- <script src="/js/index.js"></script> -->
+</body>
+</html>
