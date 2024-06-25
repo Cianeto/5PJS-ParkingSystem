@@ -1,9 +1,13 @@
 package faeterj._5pjs.parkingsystem.controller;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -51,12 +55,23 @@ public class ReservaControl {
     @GetMapping("/reservaPage")
     public String veiculoPage(@RequestParam(name = "veiculoId") String veiculo_id, Model model) {
         // Optionally, fetch the cliente or related information using clienteId
-        model.addAttribute("veiculoId", veiculo_id);
+       // model.addAttribute("veiculoId", veiculo_id);
         model.addAttribute("reservas", reservaRepo.findAll());
         return "reservaPage";
     }
+    
+    @PostMapping("/insertReserva")
+    public ResponseEntity<?> inserirNovaReserva(@ModelAttribute ReservaModel reserva){
+        Optional<ReservaModel> existingReserva = reservaRepo.findById(reserva.getReserva_id());
+        if (existingReserva.isPresent()) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Reserva com ID " + reserva.getReserva_id() + " já existe.");
+        } else {
+            reservaRepo.save(reserva);
+            return ResponseEntity.status(HttpStatus.CREATED).body(reserva);
+        }
+    }
 
-      @PostMapping("/cadastrarReserva")
+    /*   @PostMapping("/cadastrarReserva")
     public void inserirReserva(@RequestBody ReservaDTO reservaDTO){
         VeiculoModel veiculo = veiculoRepo.findById(reservaDTO.getVeiculo_id())
         .orElseThrow(()-> new RuntimeException("veiculo nao encontrado"));
@@ -74,10 +89,15 @@ public class ReservaControl {
 
         reservaRepo.save(reservaModel);
 
-    } 
+    }  */
 
-     @DeleteMapping("/deletarReserva/{id}")
-    public void deletarReserva(@PathVariable int id){
-        reservaRepo.deleteById(id);
-    } 
+    @DeleteMapping("/deleteReserva/{id}") 
+    public ResponseEntity<?> deletarVeiculo(@PathVariable Integer id){
+        if (reservaRepo.existsById(id)) {
+            reservaRepo.deleteById(id);
+            return ResponseEntity.status(HttpStatus.OK).body("Reserva deletado com sucesso!.");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("reserva: " + id + "not found.");
+        }
+    }
 }

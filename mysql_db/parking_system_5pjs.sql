@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jun 21, 2024 at 09:13 PM
+-- Generation Time: Jun 25, 2024 at 01:32 PM
 -- Server version: 8.3.0
 -- PHP Version: 8.2.18
 
@@ -35,7 +35,19 @@ CREATE TABLE IF NOT EXISTS `tb_clientes` (
   `telefone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`cliente_id`),
   UNIQUE KEY `cpf` (`cpf`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `tb_clientes`
+--
+
+INSERT INTO `tb_clientes` (`cliente_id`, `nome`, `cpf`, `telefone`) VALUES
+(16, 'asdf', 'asdf', 'asdf'),
+(21, 'fdsafdsa', 'fdsafdsa', 'fdsafdsa'),
+(22, 'gfds', 'gfds', 'ds'),
+(23, 'gfdsrwetw', 'gfdswr', 'dstrete'),
+(24, 'test', 'tstt', 'tststst'),
+(25, '312312', '123123', '312312');
 
 -- --------------------------------------------------------
 
@@ -53,9 +65,9 @@ CREATE TABLE IF NOT EXISTS `tb_reservas` (
   `vaga_id` int NOT NULL,
   `veiculo_id` int NOT NULL,
   PRIMARY KEY (`reserva_id`),
-  UNIQUE KEY `veiculo_id` (`veiculo_id`),
-  KEY `fk_reserva_vaga` (`vaga_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `fk_reserva_vaga` (`vaga_id`),
+  KEY `fk_reserva_veiculo` (`veiculo_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -66,9 +78,65 @@ CREATE TABLE IF NOT EXISTS `tb_reservas` (
 DROP TABLE IF EXISTS `tb_vagas`;
 CREATE TABLE IF NOT EXISTS `tb_vagas` (
   `vaga_id` int NOT NULL AUTO_INCREMENT,
-  `vaga_status` enum('LIVRE','OCUPADA') NOT NULL DEFAULT 'LIVRE',
+  `vaga_status` enum('LIVRE','OCUPADA') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT 'LIVRE',
   PRIMARY KEY (`vaga_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `tb_vagas`
+--
+
+INSERT INTO `tb_vagas` (`vaga_id`, `vaga_status`) VALUES
+(1, 'LIVRE'),
+(2, 'LIVRE'),
+(3, 'LIVRE'),
+(4, 'LIVRE'),
+(5, 'LIVRE'),
+(6, 'LIVRE'),
+(7, 'LIVRE'),
+(8, 'LIVRE'),
+(9, 'LIVRE'),
+(10, 'LIVRE'),
+(11, 'LIVRE'),
+(12, 'LIVRE'),
+(13, 'LIVRE'),
+(14, 'LIVRE'),
+(15, 'LIVRE'),
+(16, 'LIVRE'),
+(17, 'LIVRE'),
+(18, 'LIVRE'),
+(19, 'LIVRE'),
+(20, 'LIVRE'),
+(21, 'LIVRE'),
+(22, 'LIVRE'),
+(23, 'LIVRE'),
+(24, 'LIVRE'),
+(25, 'LIVRE'),
+(26, 'LIVRE'),
+(27, 'LIVRE'),
+(28, 'LIVRE'),
+(29, 'LIVRE'),
+(30, 'LIVRE'),
+(31, 'LIVRE'),
+(32, 'LIVRE'),
+(33, 'LIVRE'),
+(34, 'LIVRE'),
+(35, 'LIVRE'),
+(36, 'LIVRE'),
+(37, 'LIVRE'),
+(38, 'LIVRE'),
+(39, 'LIVRE'),
+(40, 'LIVRE'),
+(41, 'LIVRE'),
+(42, 'LIVRE'),
+(43, 'LIVRE'),
+(44, 'LIVRE'),
+(45, 'LIVRE'),
+(46, 'LIVRE'),
+(47, 'LIVRE'),
+(48, 'LIVRE'),
+(49, 'LIVRE'),
+(50, 'LIVRE');
 
 -- --------------------------------------------------------
 
@@ -86,7 +154,34 @@ CREATE TABLE IF NOT EXISTS `tb_veiculos` (
   PRIMARY KEY (`veiculo_id`),
   UNIQUE KEY `placa` (`placa`),
   KEY `fk_veiculo_cliente` (`cliente_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `tb_veiculos`
+--
+
+INSERT INTO `tb_veiculos` (`veiculo_id`, `modelo`, `placa`, `porte`, `cliente_id`) VALUES
+(6, 'porshe', '1122', 'pequeno', 21),
+(7, 'asdf', 'fdsa', 'gfds', 21),
+(8, 'fasds', 'gfds', 'jdfg', 24),
+(9, 'fasds', '1112', 'jdfgfdsa', 24);
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `tb_reservas`
+--
+ALTER TABLE `tb_reservas`
+  ADD CONSTRAINT `fk_reserva_vaga` FOREIGN KEY (`vaga_id`) REFERENCES `tb_vagas` (`vaga_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_reserva_veiculo` FOREIGN KEY (`veiculo_id`) REFERENCES `tb_veiculos` (`veiculo_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tb_veiculos`
+--
+ALTER TABLE `tb_veiculos`
+  ADD CONSTRAINT `fk_veiculo_cliente` FOREIGN KEY (`cliente_id`) REFERENCES `tb_clientes` (`cliente_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

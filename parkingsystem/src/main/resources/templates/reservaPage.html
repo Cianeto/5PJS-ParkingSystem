@@ -10,7 +10,7 @@
 </head>
 <body>
 
-    <form action="/cadastrarReserva" method="post"> <!-- enctype="multipart/form-data" -->
+    <form id="reservaForm" method="post"> <!-- enctype="multipart/form-data" -->
         Horario de entrada:<br>
         <input type="number" name="hora1">
         <input type="number" name="minuto1"><br>
@@ -34,15 +34,38 @@
                 <span th:text="${reserva.tarifa}"></span>
                 <span th:text="${reserva.vaga}"></span>
                 <span th:text="${reserva.veiculo_id}"></span>
-                
+                <button class="btn" th:onclick="'deleteReserva(' + ${reserva.reserva_id} + ');'">Delete</button>
                 <br><br>
             </li>
         </ul>
     </div>
 
     <script>
-  
+        document.getElementById('reservaForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const formData = new FormData(this); 
+        fetch('/insertReserva', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            console.log(response);
+            window.location.reload();
+        })
+        .catch(error => console.error('There has been a problem with your fetch operation:', error));
+        });
+
+        //deletar reserva
+        function deleteReserva(id) {
+            console.log(id);
+            fetch('/deleteReserva/' + id, {method: 'DELETE'})
+            .then(response => {
+                console.log(response);
+                window.location.reload();
+            })
+        }
 </script>
+
     <!-- 
     * Mostrar lista de reservas desse cliente
     * Cada reserva mostra as opções de concluir e deletar.
