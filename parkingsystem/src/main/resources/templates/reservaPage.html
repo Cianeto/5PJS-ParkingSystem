@@ -5,13 +5,44 @@
     <link rel="icon" href="/favicon.png">
     <meta charset="UTF-8">
     <title>Parking System</title>
-    <!-- <link rel="stylesheet" href="/css/"> -->
+    <link rel="stylesheet" href="/css/index.css">
     
 </head>
 <body>
 
-    <button>Cadastrar Nova Reserva</button>
+    <form action="/cadastrarReserva" method="post"> <!-- enctype="multipart/form-data" -->
+        Horario de entrada:<br>
+        <input type="number" name="hora1">
+        <input type="number" name="minuto1"><br>
+        Horario de saida:<br>
+        <input type="number" name="hora2">
+        <input type="number" name="minuto2"><br>
+        tarifa:<br>
+        <input type="number" name="tarifa"><br>
+        Vaga:<br>
+        <input type="number" name="vaga">
+       
+        <input type="hidden" name="veiculo_id" th:value="${veiculo_id}"><br>
+        <button type="submit">Cadastrar nova reserva</button>
+    </form>
+    
+    <div>
+        <ul>
+            <li th:each="reserva : ${reserva}">
+                <span th:text="${reserva.horario_entrada}"></span>
+                <span th:text="${reserva.saida}"></span>
+                <span th:text="${reserva.tarifa}"></span>
+                <span th:text="${reserva.vaga}"></span>
+                <span th:text="${reserva.veiculo_id}"></span>
+                
+                <br><br>
+            </li>
+        </ul>
+    </div>
 
+    <script>
+  
+</script>
     <!-- 
     * Mostrar lista de reservas desse cliente
     * Cada reserva mostra as opções de concluir e deletar.

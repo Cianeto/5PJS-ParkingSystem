@@ -1,7 +1,11 @@
 package faeterj._5pjs.parkingsystem.controller;
 
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -9,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import faeterj._5pjs.parkingsystem.model.ClienteModel;
 import faeterj._5pjs.parkingsystem.repository.ClienteRepo;
@@ -27,25 +30,26 @@ public class ClienteControl {
         return "ListaDeClientes";
     }
 
-    // Method to handle the form submission
+    // INSERIR CLIENTE
     @PostMapping("/insertCliente")
-    public String inserirNovoCliente(@ModelAttribute ClienteModel cliente) {
-        clienteRepo.save(cliente);
-
-        return "redirect:/";
+    public ResponseEntity<?> inserirNovoCliente(@ModelAttribute ClienteModel cliente) {
+        Optional<ClienteModel> existingCliente = clienteRepo.findByCpf(cliente.getCpf());
+        if (existingCliente.isPresent()) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Cliente com CPF " + cliente.getCpf() + " já existe.");
+        } else {
+            clienteRepo.save(cliente);
+            return ResponseEntity.status(HttpStatus.CREATED).body(cliente);
+        }
     }
 
     // DELETAR CLIENTE
-    @PostMapping("/deleteCliente-1") 
-    public String deletarCliente(@RequestParam Integer id){
-        clienteRepo.deleteById(id);
-        return "redirect:/";
-    }
-
     @DeleteMapping("/deleteCliente/{id}")
-    public String ddeletarCliente(@PathVariable int id){
-        clienteRepo.deleteById(id);
-        return "redirect:/";
+    public ResponseEntity<?> deletarCliente(@PathVariable Integer id){
+        if (clienteRepo.existsById(id)) {
+            clienteRepo.deleteById(id);
+            return ResponseEntity.status(HttpStatus.OK).body("Cliente deleted successfully.");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("cliente_id: " + id + "not found.");
+        }
     }
-
 }

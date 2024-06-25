@@ -38,13 +38,17 @@ public class ReservaModel{
 
     private ReservaStatus reserva_status;
 
-    @ManyToOne
+    /* @ManyToOne
     @JoinColumn(name = "vaga_id")
-    private VagaModel vaga;
+    private VagaModel vaga; */
 
-    @OneToOne
+    private Integer vaga_id;
+
+    /* @OneToOne
     @JoinColumn(name = "veiculo_id")
-    private VeiculoModel veiculo;
+    private VeiculoModel veiculo; */
+
+    private Integer veiculo_id;
 
     public double calcularTarifa(){
         double tarifa = 10;

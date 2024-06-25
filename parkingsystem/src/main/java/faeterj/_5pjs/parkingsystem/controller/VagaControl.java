@@ -19,4 +19,9 @@ public class VagaControl {
     @Autowired
     private VagaRepo vagaRepo;
 
+
+    @PostMapping
+        private void incluirVaga(@RequestBody VagaModel vagaModel){
+            vagaRepo.save(vagaModel);
+        }
 }

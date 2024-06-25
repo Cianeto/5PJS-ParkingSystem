@@ -32,9 +32,10 @@ public class VeiculoModel {
 
     private String porte;
 
-    @ManyToOne
+    /* @ManyToOne
     @JoinColumn(name = "cliente_id")
-    private ClienteModel cliente;
+    private ClienteModel cliente; */
+    private Integer cliente_id;
 
     
 }

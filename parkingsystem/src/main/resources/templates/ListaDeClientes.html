@@ -5,25 +5,15 @@
     <link rel="icon" href="/favicon.png">
     <meta charset="UTF-8">
     <title>Parking System</title>
-    <!-- <link rel="stylesheet" href="/css/index.css"> -->
+    <link rel="stylesheet" href="/css/index.css">
     
     <style>
-        .btn {
-            display: inline-block;
-            background-color: #007bff;
-            color: white;
-            padding: 8px 12px;
-            text-align: center;
-            text-decoration: none;
-            border-radius: 5px;
-            border: none;
-            cursor: pointer;
-        }
+        
     </style>
 </head>
 <body>
 
-    <form action="/insertCliente" method="post">
+    <form id="clienteForm" method="post">
         Nome:<br>
         <input type="text" name="nome"><br>
         CPF:<br>
@@ -43,10 +33,6 @@
                 <span th:text="${cliente.telefone}">Nome do Cliente</span>
                 <a class="btn" th:href="@{/veiculoPage(clienteId=${cliente.cliente_id})}">Veiculos</a>
                 <button class="btn" th:onclick="'deleteCliente(' + ${cliente.cliente_id} + ');'">Delete</button>
-                <!-- <form th:action="@{/deleteCliente-1}" method="post">
-                    <input type="hidden" name="id" th:value="${cliente.cliente_id}" />
-                    <button type="submit" class="btn">Excluir</button>
-                </form> -->
                 <br><br>
 
             </li>
@@ -54,17 +40,33 @@
     </div>
 
     <script>
+        // INSERIR CLIENTE (
+        document.getElementById('clienteForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const formData = new FormData(this); 
+        fetch('/insertCliente', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            console.log(response);
+            window.location.reload();
+        })
+        .catch(error => console.error('There has been a problem with your fetch operation:', error));
+        });
+        // )
+
+        // DELETAR CLIENTE (
         function deleteCliente(id) {
             console.log(id);
             fetch('/deleteCliente/' + id, {method: 'DELETE'})
             .then(response => {
-                if(response.ok) {
-                    console.log('Cliente deleted successfully');
-                    window.location.reload(); // Optionally reload the page or redirect
-                }
+                console.log(response);
+                window.location.reload();
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error => console.error('There has been a problem with your fetch operation:', error));
         }
+        // )
     </script>
     <!-- <script src="/js/index.js"></script> -->
 </body>

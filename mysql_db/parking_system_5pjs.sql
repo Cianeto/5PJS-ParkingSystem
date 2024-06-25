@@ -66,7 +66,7 @@ CREATE TABLE IF NOT EXISTS `tb_reservas` (
 DROP TABLE IF EXISTS `tb_vagas`;
 CREATE TABLE IF NOT EXISTS `tb_vagas` (
   `vaga_id` int NOT NULL AUTO_INCREMENT,
-  `vaga_status` enum('LIVRE','OCUPADA') NOT NULL,
+  `vaga_status` enum('LIVRE','OCUPADA') NOT NULL DEFAULT 'LIVRE',
   PRIMARY KEY (`vaga_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 

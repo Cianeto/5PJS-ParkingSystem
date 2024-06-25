@@ -5,22 +5,21 @@
     <link rel="icon" href="/favicon.png">
     <meta charset="UTF-8">
     <title>Parking System</title>
-    <!-- <link rel="stylesheet" href="/css/"> -->
+    <link rel="stylesheet" href="/css/index.css">
     
 </head>
 <body>
     <h1>Cliente: <span th:text="${clienteId}"></span></h1>
-    
-    <button>Cadastrar Novo Veículo</button>
-    <form action="/veiculo" method="post" enctype="multipart/form-data">
+    <!-- action="/insertVeiculo" -->
+    <form id="veiculoForm" method="post"> <!-- enctype="multipart/form-data" -->
         Modelo:<br>
         <input type="text" name="modelo"><br>
         Placa:<br>
         <input type="text" name="placa"><br>
         Porte (Pequeno/Médio/Grande):<br>
         <input type="text" name="porte"><br>
-        <input type="hidden" name="clienteId" th:value="${clienteId}">
-        <button type="submit">Enviar</button>
+        <input type="hidden" name="cliente_id" th:value="${clienteId}"><br>
+        <button type="submit">Cadastrar novo veiculo</button>
     </form>
     
     <div>
@@ -30,15 +29,41 @@
                 <span th:text="${veiculo.modelo}"></span>
                 <span th:text="${veiculo.placa}"></span>
                 <span th:text="${veiculo.porte}"></span>
-                <br>
+                <a class="btn" th:href="@{/reservaPage(veiculoId=${veiculo.veiculo_id})}">Reservar</a>
+                <button class="btn" th:onclick="'deleteVeiculo(' + ${veiculo.veiculo_id} + ');'">Delete</button>
+                <br><br>
             </li>
         </ul>
     </div>
 
-    <!--
-    * Mostrar lista de veículos desse cliente
-    * Cada veículo mostra as opções de editar e deletar
-    -->
+    <script>
+        // INSERIR VEICULO (
+        document.getElementById('veiculoForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const formData = new FormData(this); 
+        fetch('/insertVeiculo', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            console.log(response);
+            window.location.reload();
+        })
+        .catch(error => console.error('There has been a problem with your fetch operation:', error));
+        });
+        // )
+
+        // DELETAR VEICULO (
+        function deleteVeiculo(id) {
+            console.log(id);
+            fetch('/deleteVeiculo/' + id, {method: 'DELETE'})
+            .then(response => {
+                console.log(response);
+                window.location.reload();
+            })
+        }
+        // )
+    </script>
 
     <!-- <script src="/js/"></script> -->
 </body>
