@@ -13,6 +13,6 @@ public interface VeiculoRepo extends JpaRepository<VeiculoModel, Integer>{
     // SELECT * FROM tb_veiculos WHERE placa = ??;
     Optional<VeiculoModel> findByPlaca(String placa);
 
-    // SELECT * FROM tb_veiculos WHERE cliente_id = ??;
+    // SELECT * FROM tb_veiculos WHERE clienteId = ??;
     List<VeiculoModel> findByClienteId(Integer clienteId);
 }

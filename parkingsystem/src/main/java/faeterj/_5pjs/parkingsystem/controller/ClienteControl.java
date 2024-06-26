@@ -56,7 +56,7 @@ public class ClienteControl {
             clienteRepo.deleteById(id);
             return ResponseEntity.status(HttpStatus.OK).body("Cliente deleted successfully.");
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("cliente_id: " + id + "not found.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("clienteId: " + id + "not found.");
         }
     }
 }

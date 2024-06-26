@@ -1,4 +1,5 @@
 package faeterj._5pjs.parkingsystem.controller;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.ui.Model;
+
+import faeterj._5pjs.parkingsystem.enums.VagaStatus;
 import faeterj._5pjs.parkingsystem.model.ReservaModel;
 import faeterj._5pjs.parkingsystem.model.VagaModel;
 import faeterj._5pjs.parkingsystem.model.VeiculoModel;
@@ -38,6 +41,7 @@ import faeterj._5pjs.parkingsystem.repository.VeiculoRepo;
     @JoinColumn(name = "veiculo_id")
     private VeiculoModel veiculo;
  */
+import faeterj._5pjs.parkingsystem.service.ReservaService;
 
 @Controller
 public class ReservaControl {
@@ -51,6 +55,9 @@ public class ReservaControl {
     @Autowired
     private VagaRepo vagaRepo;
 
+    @Autowired
+    private ReservaService reservaServ;
+
     @GetMapping("/reservaPage")
     public String veiculoPage(@RequestParam(name = "veiculoId") String veiculo_id, Model model) {
         
@@ -61,30 +68,20 @@ public class ReservaControl {
     
     @PostMapping("/insertReserva")
     public ResponseEntity<?> inserirNovaReserva(@ModelAttribute ReservaModel reserva){
-        
-        reservaRepo.save(?);
-
+        Integer vaga = reservaServ.verificarPrimeiraVagaLivre();
+        if(vaga == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Todas vagas estão ocupadas.");
+        }
+        LocalDateTime horarioEntrada = LocalDateTime.now();
+        LocalDateTime horarioSaida = reserva.getHorario_saida();
+        reserva.setHorario_entrada(horarioEntrada);
+        reserva.setTarifa(reservaServ.calcularTarifa(horarioEntrada, horarioSaida));
+        reserva.setHorario_saida(horarioSaida);
+        /* reserva.setReserva_status(?); */
+        reserva.setVagaId(vaga);
+        reservaRepo.save(reserva);
+        return ResponseEntity.status(HttpStatus.FOUND).body("Vaga livre encontrada.");
     }
-
-    /*   @PostMapping("/cadastrarReserva")
-    public void inserirReserva(@RequestBody ReservaDTO reservaDTO){
-        VeiculoModel veiculo = veiculoRepo.findById(reservaDTO.getVeiculo_id())
-        .orElseThrow(()-> new RuntimeException("veiculo nao encontrado"));
-
-        VagaModel vagaModel = vagaRepo.findById(reservaDTO.getVaga_id())
-        .orElseThrow(()-> new RuntimeException("Vaga nao encontrada"));
-
-        ReservaModel reservaModel = new ReservaModel();
-        reservaModel.setHorario_entrada(reservaDTO.getHorario_entrada());
-        reservaModel.setHorario_saida(reservaDTO.getHorario_saida());
-        reservaModel.setTarifa(reservaDTO.getTarifa());
-        reservaModel.setReserva_status(reservaDTO.getReserva_status());
-        reservaModel.setVaga(vagaModel);
-        reservaModel.setVeiculo(veiculo);
-
-        reservaRepo.save(reservaModel);
-
-    }  */
 
     @DeleteMapping("/deleteReserva/{id}") 
     public ResponseEntity<?> deletarVeiculo(@PathVariable Integer id){

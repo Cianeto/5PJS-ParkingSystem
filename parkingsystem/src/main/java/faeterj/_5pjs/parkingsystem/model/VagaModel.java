@@ -3,6 +3,8 @@ package faeterj._5pjs.parkingsystem.model;
 import faeterj._5pjs.parkingsystem.enums.VagaStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -26,6 +28,6 @@ public class VagaModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer vagaId;
 
-    @Column(name = "vaga_status")
-    private VagaStatus status;
+    @Enumerated(EnumType.STRING)
+    private VagaStatus vagaStatus;
 }

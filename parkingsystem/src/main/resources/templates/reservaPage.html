@@ -10,31 +10,21 @@
 </head>
 <body>
     <h1>veiculo: <span th:text="${veiculoId}"></span></h1>
-    <form id="reservaForm" method="post">
-        Horario de entrada:<br>
-        <input type="time" name="horario_entrada"><br>
-        
+    <!-- <form id="reservaForm" method="post">
         Horario de saida:<br>
         <input type="text" name="horario_saida"><br>
-        
-        tarifa:<br>
-        <input type="number" name="tarifa"><br>
-        Enum:<br>
-        <select id="reserva_status" name="reserva_status" required>
-            <option value="">Selecione o status</option>
-            <option value="AGENDADA">AGENDADA</option>
-            <option value="PENDENTE">PENDENTE</option>
-            <option value="EM_ANDAMENTO">EM_ANDAMENTO</option>
-            <option value="FINALIZADA">FINALIZADA</option>
-        </select><br>
 
-        Vaga:<br>
-        <input type="number" name="vagaId">
-       
+        <input type="hidden" name="veiculoId" th:value="${veiculoId}"><br>
+        <button type="submit">Cadastrar nova reserva</button>
+    </form> -->
+    <form id="reservaForm" method="post">
+        Data:<br>
+        <input type="date" name="data"><br>
+        Horário:<br>
+        <input type="time" name="horario"><br>
         <input type="hidden" name="veiculoId" th:value="${veiculoId}"><br>
         <button type="submit">Cadastrar nova reserva</button>
     </form>
-    
     <div>
         <ul>
             <li th:each="reserva : ${reservas}">
@@ -52,9 +42,25 @@
 
     <script>
         // INSERIR RESERVA (
+        document.querySelector('form').onsubmit = function(e) {
+            e.preventDefault();
+            const data = document.querySelector('input[name="data"]').value;
+            const horario = document.querySelector('input[name="horario"]').value;
+            const localDateTime = `${data}T${horario}`;
+            // Agora você pode enviar localDateTime para o servidor
+            console.log(localDateTime); // Exemplo de como seria a string resultante
+            // Aqui você adicionaria o código para enviar os dados ao servidor
+        };
+        // )
+
+        // INSERIR RESERVA (
         document.getElementById('reservaForm').addEventListener('submit', function(e) {
         e.preventDefault();
-        const formData = new FormData(this); 
+        const data = document.querySelector('input[name="data"]').value;
+        const horario = document.querySelector('input[name="horario"]').value;
+        const localDateTime = `${data}T${horario}`;
+        const formData = new FormData();
+        formData.append('horarioSaida', localDateTime);
         fetch('/insertReserva', {
             method: 'POST',
             body: formData
@@ -66,6 +72,7 @@
         .catch(error => console.error('There has been a problem with your fetch operation:', error));
         });
         // )
+
 
         // DELETAR RESERVA (
         function deleteReserva(id) {

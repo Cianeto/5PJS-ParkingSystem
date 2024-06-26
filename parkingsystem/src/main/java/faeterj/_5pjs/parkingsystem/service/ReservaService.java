@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import faeterj._5pjs.parkingsystem.enums.VagaStatus;
 import faeterj._5pjs.parkingsystem.model.VagaModel;
 import faeterj._5pjs.parkingsystem.repository.ReservaRepo;
 import faeterj._5pjs.parkingsystem.repository.VagaRepo;
@@ -47,19 +48,16 @@ public class ReservaService {
     // VAGA_ID (
     @Transactional
     public Integer verificarPrimeiraVagaLivre(){
-        Optional<VagaModel> vaga = vagaRepo.findFirstByVagaStatusLivre();
-        
-        if (vaga.isPresent()) {
+        Optional<VagaModel> vaga = vagaRepo.findFirstByVagaStatus(VagaStatus.LIVRE);
+        System.out.println(vaga);
+        /* if (vaga.isPresent()) {
             VagaModel vagaLivre = vaga.get();
-            vagaLivre.setStatus(null);
+            vagaLivre.setVagaStatus(VagaStatus.OCUPADA);
             vagaRepo.save(vagaLivre);
             return vagaLivre.getVagaId();
-        } else {
+        } else */{ 
             return null;
         }
-
-        return 0;
     }
-    
     // )
 }   
