@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import faeterj._5pjs.parkingsystem.model.ClienteModel;
 import faeterj._5pjs.parkingsystem.repository.ClienteRepo;
@@ -25,14 +26,14 @@ public class ClienteControl {
 
     // PAGINA INICIAL, MOSTRAR LISTA DE CLIENTES
     @GetMapping("/") 
-    public String listarTodosClientes(Model model) {
+    public String listarTodosClientes(Model model){
         model.addAttribute("clientes", clienteRepo.findAll());
-        return "ListaDeClientes";
+        return "index";
     }
 
     // INSERIR CLIENTE
     @PostMapping("/insertCliente")
-    public ResponseEntity<?> inserirNovoCliente(@ModelAttribute ClienteModel cliente) {
+    public ResponseEntity<?> inserirNovoCliente(@ModelAttribute ClienteModel cliente){
         Optional<ClienteModel> existingCliente = clienteRepo.findByCpf(cliente.getCpf());
         if (existingCliente.isPresent()) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Cliente com CPF " + cliente.getCpf() + " já existe.");
@@ -41,6 +42,12 @@ public class ClienteControl {
             return ResponseEntity.status(HttpStatus.CREATED).body(cliente);
         }
     }
+
+    /* @PutMapping("/updateCliente/{id}")
+    public ResponseEntity<?> atualizarCliente(){
+        
+
+    } */
 
     // DELETAR CLIENTE
     @DeleteMapping("/deleteCliente/{id}")

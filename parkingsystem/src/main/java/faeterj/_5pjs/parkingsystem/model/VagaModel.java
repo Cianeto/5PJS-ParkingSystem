@@ -1,7 +1,7 @@
 package faeterj._5pjs.parkingsystem.model;
 
 import faeterj._5pjs.parkingsystem.enums.VagaStatus;
-
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,18 +12,20 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "tb_vagas")
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class VagaModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer vaga_id;
+    private Integer vagaId;
 
-    
+    @Column(name = "vaga_status")
     private VagaStatus status;
 }

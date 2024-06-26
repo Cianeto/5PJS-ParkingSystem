@@ -9,31 +9,41 @@
     
 </head>
 <body>
-
-    <form id="reservaForm" method="post"> <!-- enctype="multipart/form-data" -->
+    <h1>veiculo: <span th:text="${veiculoId}"></span></h1>
+    <form id="reservaForm" method="post">
         Horario de entrada:<br>
-        <input type="number" name="hora1">
-        <input type="number" name="minuto1"><br>
+        <input type="time" name="horario_entrada"><br>
+        
         Horario de saida:<br>
-        <input type="number" name="hora2">
-        <input type="number" name="minuto2"><br>
+        <input type="text" name="horario_saida"><br>
+        
         tarifa:<br>
         <input type="number" name="tarifa"><br>
+        Enum:<br>
+        <select id="reserva_status" name="reserva_status" required>
+            <option value="">Selecione o status</option>
+            <option value="AGENDADA">AGENDADA</option>
+            <option value="PENDENTE">PENDENTE</option>
+            <option value="EM_ANDAMENTO">EM_ANDAMENTO</option>
+            <option value="FINALIZADA">FINALIZADA</option>
+        </select><br>
+
         Vaga:<br>
-        <input type="number" name="vaga">
+        <input type="number" name="vagaId">
        
-        <input type="hidden" name="veiculo_id" th:value="${veiculo_id}"><br>
+        <input type="hidden" name="veiculoId" th:value="${veiculoId}"><br>
         <button type="submit">Cadastrar nova reserva</button>
     </form>
     
     <div>
         <ul>
-            <li th:each="reserva : ${reserva}">
+            <li th:each="reserva : ${reservas}">
                 <span th:text="${reserva.horario_entrada}"></span>
-                <span th:text="${reserva.saida}"></span>
+                <span th:text="${reserva.horario_saida}"></span>
                 <span th:text="${reserva.tarifa}"></span>
-                <span th:text="${reserva.vaga}"></span>
-                <span th:text="${reserva.veiculo_id}"></span>
+                <span th:text="${reserva.reserva_status}"></span>
+                <span th:text="${reserva.vagaId}"></span>
+                <span th:text="${reserva.veiculoId}"></span>
                 <button class="btn" th:onclick="'deleteReserva(' + ${reserva.reserva_id} + ');'">Delete</button>
                 <br><br>
             </li>
@@ -41,6 +51,7 @@
     </div>
 
     <script>
+        // INSERIR RESERVA (
         document.getElementById('reservaForm').addEventListener('submit', function(e) {
         e.preventDefault();
         const formData = new FormData(this); 
@@ -54,8 +65,9 @@
         })
         .catch(error => console.error('There has been a problem with your fetch operation:', error));
         });
+        // )
 
-        //deletar reserva
+        // DELETAR RESERVA (
         function deleteReserva(id) {
             console.log(id);
             fetch('/deleteReserva/' + id, {method: 'DELETE'})
@@ -64,12 +76,8 @@
                 window.location.reload();
             })
         }
+        // )
 </script>
-
-    <!-- 
-    * Mostrar lista de reservas desse cliente
-    * Cada reserva mostra as opções de concluir e deletar.
-     -->
 
     <!-- <script src="/js/"></script> -->
 </body>

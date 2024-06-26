@@ -1,6 +1,5 @@
 package faeterj._5pjs.parkingsystem.controller;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import faeterj._5pjs.parkingsystem.dto.VeiculoDTO;
-import faeterj._5pjs.parkingsystem.model.ClienteModel;
 import faeterj._5pjs.parkingsystem.model.VeiculoModel;
 import faeterj._5pjs.parkingsystem.repository.ClienteRepo;
 import faeterj._5pjs.parkingsystem.repository.VeiculoRepo;
@@ -30,30 +27,16 @@ public class VeiculoControl {
     @Autowired
     private ClienteRepo clienteRepo;
 
-
+    // LISTAR TODOS VEICULOS DO CLIENTE ACESSADO
     @GetMapping("/veiculoPage")
-    public String veiculoPage(@RequestParam(name = "clienteId") String clienteId, Model model) {
-        // Optionally, fetch the cliente or related information using clienteId
-        model.addAttribute("clienteId", clienteId);
-        model.addAttribute("veiculos", veiculoRepo.findAll());
-        return "veiculoPage";
+    public String veiculoPage(@RequestParam(name = "clienteId") String clienteId, Model model){
+        Integer cliente_id = Integer.parseInt(clienteId);
+        model.addAttribute("cliente", clienteRepo.findById(cliente_id).get());
+        model.addAttribute("veiculos", veiculoRepo.findByClienteId(cliente_id));
+        return "veiculopage";
     }
 
-    /* @PostMapping("/insertVeiculo")
-    public String inserirNovoVeiculo(@RequestParam(name = "clienteId") String clienteId, @ModelAttribute VeiculoDTO veiculoDTO) {
-        ClienteModel cliente = clienteRepo.findById(Integer.parseInt(clienteId))
-        .orElseThrow(() -> new RuntimeException("Cliente nao encontrado!"));
-        // Save the cliente object to the database
-        VeiculoModel veiculo = new VeiculoModel();
-        veiculo.setModelo(veiculoDTO.getModelo());
-        veiculo.setPlaca(veiculoDTO.getPlaca());
-        veiculo.setPorte(veiculoDTO.getPorte());
-        veiculo.setCliente(cliente);
-        veiculoRepo.save(veiculo);
-
-        return "redirect:/";
-    } */
-
+    // INSERIR VEICULO
     @PostMapping("/insertVeiculo")
     public ResponseEntity<?> inserirNovoVeiculo(@ModelAttribute VeiculoModel veiculo){
         Optional<VeiculoModel> existingVeiculo = veiculoRepo.findByPlaca(veiculo.getPlaca());
@@ -65,10 +48,11 @@ public class VeiculoControl {
         }
     }
 
+    // DELETAR VEICULO
     @DeleteMapping("/deleteVeiculo/{id}") 
     public ResponseEntity<?> deletarVeiculo(@PathVariable Integer id){
-        if (clienteRepo.existsById(id)) {
-            clienteRepo.deleteById(id);
+        if (veiculoRepo.existsById(id)) {
+            veiculoRepo.deleteById(id);
             return ResponseEntity.status(HttpStatus.OK).body("Veiculo deleted successfully.");
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("veiculo_id: " + id + "not found.");

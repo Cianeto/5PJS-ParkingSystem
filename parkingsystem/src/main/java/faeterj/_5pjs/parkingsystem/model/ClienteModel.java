@@ -11,11 +11,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "tb_clientes")
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class ClienteModel {
@@ -31,12 +33,5 @@ public class ClienteModel {
 
     @Column(nullable = false)
     private String telefone;
-
-    public ClienteModel(String nome, String cpf, String telefone){
-        this.nome = nome;
-        this.cpf = cpf;
-        this.telefone = telefone;
-    }
-
     
 }

@@ -2,7 +2,7 @@ package faeterj._5pjs.parkingsystem.enums;
 
 public enum ReservaStatus {
 
-    AGENDADA,
+    /* AGENDADA, */
     EM_ANDAMENTO,
     PENDENTE,
     FINALIZADA

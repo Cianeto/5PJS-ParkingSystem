@@ -4,25 +4,25 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 
 import faeterj._5pjs.parkingsystem.enums.ReservaStatus;
-
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "tb_reservas")
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReservaModel{
@@ -30,33 +30,30 @@ public class ReservaModel{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer reserva_id;
 
+    // MUDAR NOME DE RESERVA PRA TICKET DEPENDENDO
+    
     private LocalDateTime horario_entrada;
-
+    
     private LocalDateTime horario_saida;
 
     private Double tarifa;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "reserva_status")
     private ReservaStatus reserva_status;
 
     /* @ManyToOne
     @JoinColumn(name = "vaga_id")
     private VagaModel vaga; */
 
-    private Integer vaga_id;
+    private Integer vagaId;
 
     /* @OneToOne
     @JoinColumn(name = "veiculo_id")
     private VeiculoModel veiculo; */
 
-    private Integer veiculo_id;
+    private Integer veiculoId;
 
-    public double calcularTarifa(){
-        double tarifa = 10;
-        LocalDateTime hora1 = LocalDateTime.of(2024,6,4,10,30);
-        LocalDateTime hora2 = LocalDateTime.of(2024, 6,4, 15,30);
-        Duration diferenca = Duration.between(hora1, hora2);
-        long horas = diferenca.toHours();
-        //System.out.println(horas);
-        return horas * tarifa;
-    }
+
+    
 }

@@ -35,19 +35,7 @@ CREATE TABLE IF NOT EXISTS `tb_clientes` (
   `telefone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`cliente_id`),
   UNIQUE KEY `cpf` (`cpf`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `tb_clientes`
---
-
-INSERT INTO `tb_clientes` (`cliente_id`, `nome`, `cpf`, `telefone`) VALUES
-(16, 'asdf', 'asdf', 'asdf'),
-(21, 'fdsafdsa', 'fdsafdsa', 'fdsafdsa'),
-(22, 'gfds', 'gfds', 'ds'),
-(23, 'gfdsrwetw', 'gfdswr', 'dstrete'),
-(24, 'test', 'tstt', 'tststst'),
-(25, '312312', '123123', '312312');
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -58,8 +46,8 @@ INSERT INTO `tb_clientes` (`cliente_id`, `nome`, `cpf`, `telefone`) VALUES
 DROP TABLE IF EXISTS `tb_reservas`;
 CREATE TABLE IF NOT EXISTS `tb_reservas` (
   `reserva_id` int NOT NULL AUTO_INCREMENT,
-  `horarioEntrada` datetime NOT NULL,
-  `horarioSaida` datetime NOT NULL,
+  `horario_entrada` datetime NOT NULL,
+  `horario_saida` datetime NOT NULL,
   `tarifa` decimal(10,2) NOT NULL,
   `reserva_status` enum('AGENDADA','EM_ANDAMENTO','PENDENTE','FINALIZADA') NOT NULL,
   `vaga_id` int NOT NULL,
@@ -154,21 +142,7 @@ CREATE TABLE IF NOT EXISTS `tb_veiculos` (
   PRIMARY KEY (`veiculo_id`),
   UNIQUE KEY `placa` (`placa`),
   KEY `fk_veiculo_cliente` (`cliente_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `tb_veiculos`
---
-
-INSERT INTO `tb_veiculos` (`veiculo_id`, `modelo`, `placa`, `porte`, `cliente_id`) VALUES
-(6, 'porshe', '1122', 'pequeno', 21),
-(7, 'asdf', 'fdsa', 'gfds', 21),
-(8, 'fasds', 'gfds', 'jdfg', 24),
-(9, 'fasds', '1112', 'jdfgfdsa', 24);
-
---
--- Constraints for dumped tables
---
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Constraints for table `tb_reservas`

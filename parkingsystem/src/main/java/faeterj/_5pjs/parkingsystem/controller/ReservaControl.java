@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.ui.Model;
-import faeterj._5pjs.parkingsystem.dto.ReservaDTO;
 import faeterj._5pjs.parkingsystem.model.ReservaModel;
 import faeterj._5pjs.parkingsystem.model.VagaModel;
 import faeterj._5pjs.parkingsystem.model.VeiculoModel;
@@ -54,21 +53,17 @@ public class ReservaControl {
 
     @GetMapping("/reservaPage")
     public String veiculoPage(@RequestParam(name = "veiculoId") String veiculo_id, Model model) {
-        // Optionally, fetch the cliente or related information using clienteId
-       // model.addAttribute("veiculoId", veiculo_id);
+        
+        model.addAttribute("veiculoId", veiculo_id);
         model.addAttribute("reservas", reservaRepo.findAll());
         return "reservaPage";
     }
     
     @PostMapping("/insertReserva")
     public ResponseEntity<?> inserirNovaReserva(@ModelAttribute ReservaModel reserva){
-        Optional<ReservaModel> existingReserva = reservaRepo.findById(reserva.getReserva_id());
-        if (existingReserva.isPresent()) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Reserva com ID " + reserva.getReserva_id() + " já existe.");
-        } else {
-            reservaRepo.save(reserva);
-            return ResponseEntity.status(HttpStatus.CREATED).body(reserva);
-        }
+        
+        reservaRepo.save(?);
+
     }
 
     /*   @PostMapping("/cadastrarReserva")

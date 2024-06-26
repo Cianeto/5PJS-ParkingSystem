@@ -9,17 +9,29 @@
     
 </head>
 <body>
-    <h1>Cliente: <span th:text="${clienteId}"></span></h1>
-    <!-- action="/insertVeiculo" -->
-    <form id="veiculoForm" method="post"> <!-- enctype="multipart/form-data" -->
-        Modelo:<br>
-        <input type="text" name="modelo"><br>
-        Placa:<br>
-        <input type="text" name="placa"><br>
-        Porte (Pequeno/Médio/Grande):<br>
-        <input type="text" name="porte"><br>
-        <input type="hidden" name="cliente_id" th:value="${clienteId}"><br>
-        <button type="submit">Cadastrar novo veiculo</button>
+    <h1>Cliente: <span th:text="${cliente.nome}"></span></h1>
+
+    <form id="veiculoForm" method="post">
+        <fieldset>
+            <legend>Informações do Veículo</legend>
+            
+            <label for="modelo">Modelo:</label><br>
+            <input required type="text" id="modelo" name="modelo" placeholder="Ex: Honda Civic"><br>
+            
+            <label for="placa">Placa:</label><br>
+            <input required type="text" id="placa" name="placa" pattern="[A-Za-z0-9]{7}" placeholder="Ex: ABC1234" oninput="this.value = this.value.toUpperCase()"><br>
+            
+            <label for="porte">Porte:</label><br>
+            <select id="porte" name="porte" required>
+                <option value="">Selecione o porte</option>
+                <option value="Pequeno">Pequeno</option>
+                <option value="Médio">Médio</option>
+            </select><br>
+            
+            <input type="hidden" name="clienteId" th:value="${cliente.cliente_id}">
+            
+            <button type="submit" class="btn-submit">Cadastrar novo veículo</button>
+        </fieldset>
     </form>
     
     <div>
@@ -55,7 +67,6 @@
 
         // DELETAR VEICULO (
         function deleteVeiculo(id) {
-            console.log(id);
             fetch('/deleteVeiculo/' + id, {method: 'DELETE'})
             .then(response => {
                 console.log(response);
