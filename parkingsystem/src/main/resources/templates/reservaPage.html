@@ -1,91 +1,80 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/favicon.png">
-    <meta charset="UTF-8">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" />
+    <meta charset="UTF-8" />
     <title>Parking System</title>
-    <link rel="stylesheet" href="/css/index.css">
-    
-</head>
-<body>
-    <h1>veiculo: <span th:text="${veiculoId}"></span></h1>
-    <!-- <form id="reservaForm" method="post">
-        Horario de saida:<br>
-        <input type="text" name="horario_saida"><br>
+    <link rel="stylesheet" href="/css/index.css" />
+  </head>
+  <body>
+    <h1>Veículo: <span th:text="${veiculoId}"></span></h1>
 
-        <input type="hidden" name="veiculoId" th:value="${veiculoId}"><br>
-        <button type="submit">Cadastrar nova reserva</button>
-    </form> -->
-    <form id="reservaForm" method="post">
-        Data:<br>
-        <input type="date" name="data"><br>
-        Horário:<br>
-        <input type="time" name="horario"><br>
-        <input type="hidden" name="veiculoId" th:value="${veiculoId}"><br>
-        <button type="submit">Cadastrar nova reserva</button>
-    </form>
-    <div>
-        <ul>
-            <li th:each="reserva : ${reservas}">
-                <span th:text="${reserva.horario_entrada}"></span>
-                <span th:text="${reserva.horario_saida}"></span>
-                <span th:text="${reserva.tarifa}"></span>
-                <span th:text="${reserva.reserva_status}"></span>
-                <span th:text="${reserva.vagaId}"></span>
-                <span th:text="${reserva.veiculoId}"></span>
-                <button class="btn" th:onclick="'deleteReserva(' + ${reserva.reserva_id} + ');'">Delete</button>
-                <br><br>
-            </li>
-        </ul>
+    <button class="btn" th:attr="onclick='reservar(\'' + ${veiculoId} + '\')'">
+      Reservar
+    </button>
+
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Horário de Entrada</th>
+            <th>Horário de Saída</th>
+            <th>Tarifa</th>
+            <th>Status</th>
+            <th>Vaga</th>
+            <th>Veículo</th>
+            <th>Finalizar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="reserva : ${reservas}">
+            <td th:text="${reserva.horarioEntrada}"></td>
+            <td th:text="${reserva.horarioSaida}"></td>
+            <td th:text="${reserva.tarifa}"></td>
+            <td th:text="${reserva.reservaStatus}"></td>
+            <td th:text="${reserva.vagaId}"></td>
+            <td th:text="${reserva.veiculoId}"></td>
+            <td><button class="btn" th:onclick="'finalizar(' + ${reserva.reservaId} + ')'">Finalizar</button></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
     <script>
-        // INSERIR RESERVA (
-        document.querySelector('form').onsubmit = function(e) {
-            e.preventDefault();
-            const data = document.querySelector('input[name="data"]').value;
-            const horario = document.querySelector('input[name="horario"]').value;
-            const localDateTime = `${data}T${horario}`;
-            // Agora você pode enviar localDateTime para o servidor
-            console.log(localDateTime); // Exemplo de como seria a string resultante
-            // Aqui você adicionaria o código para enviar os dados ao servidor
-        };
-        // )
+      // INSERIR RESERVA (
+      function reservar(id) {
+        console.log(id);
+        fetch("/insertReserva?veiculoId=" + id, { method: "POST" })
+          .then((response) => {
+            if (response.ok) {
+              console.log("Reserva feita com sucesso.");
+              window.location.reload(); // Recarrega a página após a reserva
+            } else {
+              console.error("Erro ao fazer reserva.");
+            }
+          })
+          .catch((error) =>
+            console.error("Houve um problema com a operação fetch:", error)
+          );
+      }
 
-        // INSERIR RESERVA (
-        document.getElementById('reservaForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const data = document.querySelector('input[name="data"]').value;
-        const horario = document.querySelector('input[name="horario"]').value;
-        const localDateTime = `${data}T${horario}`;
-        const formData = new FormData();
-        formData.append('horarioSaida', localDateTime);
-        fetch('/insertReserva', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => {
-            console.log(response);
-            window.location.reload();
-        })
-        .catch(error => console.error('There has been a problem with your fetch operation:', error));
-        });
-        // )
-
-
-        // DELETAR RESERVA (
-        function deleteReserva(id) {
-            console.log(id);
-            fetch('/deleteReserva/' + id, {method: 'DELETE'})
-            .then(response => {
-                console.log(response);
-                window.location.reload();
-            })
-        }
-        // )
-</script>
+      function finalizar(id) {
+        fetch("/confirmarPagamento?reservaId=" + id, { method: "POST" })
+          .then((response) => {
+            if (response.ok) {
+              console.log("Reserva finalizada com sucesso.");
+              window.location.reload(); // Recarrega a página após a reserva
+            } else {
+              console.error("Erro ao finalizar reserva:", response.statusText);
+            }
+          })
+          .catch((error) =>
+            console.error("Houve um problema com a operação fetch:", error)
+          );
+      }
+    </script>
 
     <!-- <script src="/js/"></script> -->
-</body>
-</html>   
+  </body>
+</html>

@@ -27,7 +27,7 @@ public class VeiculoControl {
     @Autowired
     private ClienteRepo clienteRepo;
 
-    // LISTAR TODOS VEICULOS DO CLIENTE ACESSADO
+    // LISTAR TODOS VEICULOS DO CLIENTE ACESSADO (
     @GetMapping("/veiculoPage")
     public String veiculoPage(@RequestParam(name = "clienteId") String clienteId, Model model){
         Integer cliente_id = Integer.parseInt(clienteId);
@@ -35,8 +35,9 @@ public class VeiculoControl {
         model.addAttribute("veiculos", veiculoRepo.findByClienteId(cliente_id));
         return "veiculopage";
     }
+    // )
 
-    // INSERIR VEICULO
+    // INSERIR VEICULO (
     @PostMapping("/insertVeiculo")
     public ResponseEntity<?> inserirNovoVeiculo(@ModelAttribute VeiculoModel veiculo){
         Optional<VeiculoModel> existingVeiculo = veiculoRepo.findByPlaca(veiculo.getPlaca());
@@ -47,8 +48,9 @@ public class VeiculoControl {
             return ResponseEntity.status(HttpStatus.CREATED).body(veiculo);
         }
     }
+    // )
 
-    // DELETAR VEICULO
+    // DELETAR VEICULO (
     @DeleteMapping("/deleteVeiculo/{id}") 
     public ResponseEntity<?> deletarVeiculo(@PathVariable Integer id){
         if (veiculoRepo.existsById(id)) {
@@ -58,4 +60,5 @@ public class VeiculoControl {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("veiculo_id: " + id + "not found.");
         }
     }
+    // )
 }

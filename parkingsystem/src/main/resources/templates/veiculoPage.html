@@ -33,21 +33,30 @@
             <button type="submit" class="btn-submit">Cadastrar novo veículo</button>
         </fieldset>
     </form>
-    
-    <div>
-        <ul>
-            <li th:each="veiculo : ${veiculos}">
-                <span th:text="${veiculo.veiculo_id}"></span>
-                <span th:text="${veiculo.modelo}"></span>
-                <span th:text="${veiculo.placa}"></span>
-                <span th:text="${veiculo.porte}"></span>
-                <a class="btn" th:href="@{/reservaPage(veiculoId=${veiculo.veiculo_id})}">Reservar</a>
-                <button class="btn" th:onclick="'deleteVeiculo(' + ${veiculo.veiculo_id} + ');'">Delete</button>
-                <br><br>
-            </li>
-        </ul>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Veiculo ID</th>
+                    <th>Modelo</th>
+                    <th>Placa</th>
+                    <th>Porte</th>
+                    <th>Fazer Reserva</th>
+                    <th>Deletar Veiculo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="veiculo : ${veiculos}">
+                    <td th:text="${veiculo.veiculo_id}"></td>
+                    <td th:text="${veiculo.modelo}"></td>
+                    <td th:text="${veiculo.placa}"></td>
+                    <td th:text="${veiculo.porte}"></td>
+                    <td><a class="btn" th:href="@{/reservaPage(veiculoId=${veiculo.veiculo_id})}">Reservar</a></td>
+                    <td><button class="btn" th:onclick="'deleteVeiculo(' + ${veiculo.veiculo_id} + ');'">Delete</button></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-
     <script>
         // INSERIR VEICULO (
         document.getElementById('veiculoForm').addEventListener('submit', function(e) {

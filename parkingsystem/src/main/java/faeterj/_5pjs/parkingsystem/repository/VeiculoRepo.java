@@ -10,9 +10,8 @@ import faeterj._5pjs.parkingsystem.model.VeiculoModel;
 
 @Repository
 public interface VeiculoRepo extends JpaRepository<VeiculoModel, Integer>{
-    // SELECT * FROM tb_veiculos WHERE placa = ??;
-    Optional<VeiculoModel> findByPlaca(String placa);
 
-    // SELECT * FROM tb_veiculos WHERE clienteId = ??;
+    Optional<VeiculoModel> findByPlaca(String placa);
     List<VeiculoModel> findByClienteId(Integer clienteId);
+    
 }

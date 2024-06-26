@@ -9,6 +9,7 @@ import faeterj._5pjs.parkingsystem.model.ClienteModel;
 
 @Repository
 public interface ClienteRepo extends JpaRepository<ClienteModel, Integer>{
-    // SELECT * FROM tb_clientes WHERE cpf = ??;
+
 	Optional<ClienteModel> findByCpf(String cpf);
+    
 }

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 
 import faeterj._5pjs.parkingsystem.model.ClienteModel;
 import faeterj._5pjs.parkingsystem.repository.ClienteRepo;
@@ -24,14 +23,15 @@ public class ClienteControl {
     @Autowired
     private ClienteRepo clienteRepo;
 
-    // PAGINA INICIAL, MOSTRAR LISTA DE CLIENTES
+    // PAGINA INICIAL, MOSTRAR LISTA DE CLIENTES (
     @GetMapping("/") 
     public String listarTodosClientes(Model model){
         model.addAttribute("clientes", clienteRepo.findAll());
         return "index";
     }
+    // )
 
-    // INSERIR CLIENTE
+    // INSERIR CLIENTE (
     @PostMapping("/insertCliente")
     public ResponseEntity<?> inserirNovoCliente(@ModelAttribute ClienteModel cliente){
         Optional<ClienteModel> existingCliente = clienteRepo.findByCpf(cliente.getCpf());
@@ -42,14 +42,9 @@ public class ClienteControl {
             return ResponseEntity.status(HttpStatus.CREATED).body(cliente);
         }
     }
+    // )
 
-    /* @PutMapping("/updateCliente/{id}")
-    public ResponseEntity<?> atualizarCliente(){
-        
-
-    } */
-
-    // DELETAR CLIENTE
+    // DELETAR CLIENTE (
     @DeleteMapping("/deleteCliente/{id}")
     public ResponseEntity<?> deletarCliente(@PathVariable Integer id){
         if (clienteRepo.existsById(id)) {
@@ -59,4 +54,5 @@ public class ClienteControl {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("clienteId: " + id + "not found.");
         }
     }
+    // )
 }

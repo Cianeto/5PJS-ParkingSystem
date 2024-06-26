@@ -7,5 +7,7 @@ import faeterj._5pjs.parkingsystem.model.ReservaModel;
 
 @Repository
 public interface ReservaRepo extends JpaRepository<ReservaModel, Integer>{
-    
+
+
+
 }
