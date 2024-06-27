@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import faeterj._5pjs.parkingsystem.model.ClienteModel;
 import faeterj._5pjs.parkingsystem.repository.ClienteRepo;
@@ -40,6 +41,19 @@ public class ClienteControl {
         } else {
             clienteRepo.save(cliente);
             return ResponseEntity.status(HttpStatus.CREATED).body(cliente);
+        }
+    }
+    // )
+
+    // ATUALIZAR CLIENTE (
+    @PutMapping("/updateCliente")
+    public ResponseEntity<?> updateCliente(@ModelAttribute ClienteModel cliente){
+        Optional<ClienteModel> existingCliente = clienteRepo.findByCpf(cliente.getCpf());
+        if (existingCliente.isPresent()) {
+            clienteRepo.save(cliente);
+            return ResponseEntity.status(HttpStatus.OK).body("Cliente com CPF " + cliente.getCpf() + " atualizado.");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(cliente);
         }
     }
     // )

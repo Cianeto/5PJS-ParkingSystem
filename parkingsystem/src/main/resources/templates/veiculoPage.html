@@ -60,17 +60,17 @@
     <script>
         // INSERIR VEICULO (
         document.getElementById('veiculoForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const formData = new FormData(this); 
-        fetch('/insertVeiculo', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => {
-            console.log(response);
-            window.location.reload();
-        })
-        .catch(error => console.error('There has been a problem with your fetch operation:', error));
+            e.preventDefault();
+            const formData = new FormData(this); 
+            fetch('/insertVeiculo', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                console.log(response);
+                window.location.reload();
+            })
+            .catch(error => console.error('There has been a problem with your fetch operation:', error));
         });
         // )
 

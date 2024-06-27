@@ -39,6 +39,8 @@ public class ReservaModel{
     @Enumerated(EnumType.STRING)
     private ReservaStatus reservaStatus;
 
+    private String commentary;
+
     private Integer vagaId;
 
     private Integer veiculoId;

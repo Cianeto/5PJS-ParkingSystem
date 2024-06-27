@@ -22,9 +22,11 @@
             <th>Horário de Saída</th>
             <th>Tarifa</th>
             <th>Status</th>
+            <th>Comentário</th>
             <th>Vaga</th>
             <th>Veículo</th>
             <th>Finalizar</th>
+            <th>Problema</th>
           </tr>
         </thead>
         <tbody>
@@ -33,6 +35,7 @@
             <td th:text="${reserva.horarioSaida}"></td>
             <td th:text="${reserva.tarifa}"></td>
             <td th:text="${reserva.reservaStatus}"></td>
+            <td th:text="${reserva.commentary}"></td>
             <td th:text="${reserva.vagaId}"></td>
             <td th:text="${reserva.veiculoId}"></td>
             <td><button class="btn" th:onclick="'finalizar(' + ${reserva.reservaId} + ')'">Finalizar</button></td>

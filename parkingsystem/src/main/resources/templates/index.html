@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/css/index.css">
     
     <style>
-        #updateClienteForm {
+        #attClienteDiv {
             display: none;
             position: fixed;
             z-index: 1;
@@ -37,20 +37,20 @@
         <button type="submit">Enviar</button>
     </form>
 
-    
 
-    <div id="updateClienteForm">
-        <form action="/submitForm">
-            <label for="fname"></label><br>
-            <input type="text" id="fname" name="fname"><br>
-
-            <label for="lname">Last Name:</label><br>
-            <input type="text" id="lname" name="lname"><br><br>
-            
+    <div id="attClienteDiv">
+        <form id="attClienteForm">
+            <input type="hidden" id="attClienteId" name="clienteId">
+            <label for="attNome">Nome:</label><br>
+            <input type="text" id="attNome" name="nome"><br>
+            <input type="hidden" id="attCpf" name="cpf">
+            <label for="attTelefone">Telefone:</label><br>
+            <input type="text" id="attTelefone" name="telefone"><br><br>
             <input type="submit" value="Submit">
             <button type="button" onclick="closeForm()">Close</button>
         </form>
     </div>
+
 
     <h2>Lista de Clientes</h2>
     
@@ -74,7 +74,7 @@
                     <td th:text="${cliente.cpf}"></td>
                     <td th:text="${cliente.telefone}"></td>
                     <td style="text-align: center;"><a class="btn" th:href="@{/veiculoPage(clienteId=${cliente.clienteId})}">Veiculos</a></td>
-                    <td><button class="btn" id="btnUpdateForm">Alterar</button></td>
+                    <td><button class="btn" th:attr="onclick='openAndPopulateForm(\'' + ${cliente} + '\')'">Alterar</button></td>
                     <td><button class="btn" th:onclick="'deleteCliente(' + ${cliente.clienteId} + ');'">Delete</button></td>
                 </tr>
             </tbody>
@@ -142,15 +142,76 @@
         // )
 
         // ATUALIZAR CLIENTE (
-        var btnUpdate = document.getElementById("btnUpdateForm");
+        document.getElementById('attClienteForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this); 
+            fetch('/updateCliente', {
+                method: 'PUT',
+                body: formData
+            })
+            .then(response => {
+                console.log(response);
+                window.location.reload();
+            })
+            .catch(error => console.error('There has been a problem with your fetch operation:', error));
+        });
+        /* document.getElementById('updateClienteForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            const formData = {
+                clienteId: document.getElementById('attClienteId').value,
+                nome: document.getElementById('attNome').value,
+                cpf: document.getElementById('attCpf').value,
+                telefone: document.getElementById('attTelefone').value,
+            };
+
+            fetch('/your-endpoint-url', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('Network response was not ok.');
+            })
+            .catch(error => {
+                console.error('There has been a problem with your fetch operation:', error);
+                // Handle errors
+        });
+    }); */
+        
+        function openAndPopulateForm(clienteStr) {
+            const cliente = clienteStr.slice(clienteStr.indexOf('(') + 1, clienteStr.length - 1)
+                .split(', ')
+                .reduce((acc, current) => {
+                    const [key, value] = current.split('=');
+                    acc[key] = value;
+                    return acc;
+                }, {});
+
+            console.log(cliente)
+            console.log(cliente.clienteId)
+
+            document.getElementById('attClienteId').value = cliente.clienteId;
+            document.getElementById('attNome').value = cliente.nome;
+            document.getElementById('attCpf').value = cliente.cpf;
+            document.getElementById('attTelefone').value = cliente.telefone;
+            
+            document.getElementById('attClienteDiv').style.display = 'block';
+        }
+        /* var btnUpdate = document.getElementById("btnUpdateForm");
         var formUpdate = document.getElementById("updateClienteForm");
 
         btnUpdate.onclick = function() {
             form.style.display = "block";
-        }
+        }*/
 
         function closeForm() {
-            form.style.display = "none";
+            document.getElementById('attClienteDiv').style.display = "none";
         }
         // )
     </script>
