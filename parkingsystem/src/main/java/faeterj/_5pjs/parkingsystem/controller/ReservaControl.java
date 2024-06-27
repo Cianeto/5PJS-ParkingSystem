@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.ui.Model;
-
+import java.util.List;
 import faeterj._5pjs.parkingsystem.enums.ReservaStatus;
 import faeterj._5pjs.parkingsystem.model.ReservaModel;
+import faeterj._5pjs.parkingsystem.repository.ClienteRepo;
 import faeterj._5pjs.parkingsystem.repository.ReservaRepo;
+import faeterj._5pjs.parkingsystem.repository.VeiculoRepo;
 import faeterj._5pjs.parkingsystem.service.ReservaService;
 import faeterj._5pjs.parkingsystem.service.VagaService;
 
@@ -27,17 +29,26 @@ public class ReservaControl {
     private ReservaRepo reservaRepo;
 
     @Autowired
+    private ClienteRepo clienteRepo;
+
+    @Autowired
+    private VeiculoRepo veiculoRepo;
+
+    @Autowired
     private ReservaService reservaServ;
 
     @Autowired
     private VagaService vagaServ;
-
-    @GetMapping("/reservaPage")
-    public String veiculoPage(@RequestParam(name = "veiculoId") String veiculo_id, Model model) {
-        model.addAttribute("veiculoId", veiculo_id);
-        model.addAttribute("reservas", reservaRepo.findAll());
-        return "reservaPage";
-    }
+    
+    
+    /* @GetMapping("/veiculoPage")
+    public String veiculoPage(@RequestParam(name = "clienteId") String clienteId, Model model) {
+        Integer cliente_id = Integer.parseInt(clienteId);
+        model.addAttribute("cliente", clienteRepo.findById(cliente_id).get());
+        model.addAttribute("veiculos", veiculoRepo.findByClienteId(cliente_id));
+        model.addAttribute("reservas", reservaRepo.findByClienteId(cliente_id));
+        return "veiculoPage";
+    } */
 
     @PostMapping("/insertReserva")
     public ResponseEntity<?> inserirNovaReserva(@RequestParam(name = "veiculoId") Integer veiculoId) {
@@ -45,14 +56,20 @@ public class ReservaControl {
         if (vaga == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Todas as vagas estão ocupadas.");
         }
-        
+        List<ReservaModel> reservas = reservaRepo.findByVeiculoId(veiculoId);
+        for (ReservaModel valor : reservas){
+            if (valor.getReservaStatus() == ReservaStatus.EM_ANDAMENTO){
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Veiculo ainda está reservad");
+            }
+        }
+
         ReservaModel reserva = new ReservaModel(LocalDateTime.now(), ReservaStatus.EM_ANDAMENTO, vaga, veiculoId);
 
         reservaRepo.save(reserva);
 
         return ResponseEntity.status(HttpStatus.CREATED).body("Reserva criada com sucesso. Vaga livre encontrada.");
     }
-    
+
     @PostMapping("/confirmarPagamento")
     public ResponseEntity<?> finalizarReserva(@RequestParam(name = "reservaId") Integer reservaId) {
         Optional<ReservaModel> optReserva = reservaRepo.findById(reservaId);

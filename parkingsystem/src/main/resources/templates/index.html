@@ -40,13 +40,13 @@
 
     <div id="attClienteDiv">
         <form id="attClienteForm">
-            <input type="hidden" id="attClienteId" name="clienteId">
+            <input required type="hidden" id="attClienteId" name="clienteId">
             <label for="attNome">Nome:</label><br>
-            <input type="text" id="attNome" name="nome"><br>
-            <input type="hidden" id="attCpf" name="cpf">
+            <input required type="text" id="attNome" name="nome"><br>
+            <input required type="hidden" id="attCpf" name="cpf">
             <label for="attTelefone">Telefone:</label><br>
-            <input type="text" id="attTelefone" name="telefone"><br><br>
-            <input type="submit" value="Submit">
+            <input required type="text" id="attTelefone" name="telefone" pattern="\(\d{2}\)\d{5}-\d{4}" title="Telefone deve ser escrito no formato (99)99999-9999"><br><br>
+            <input required type="submit" value="Submit">
             <button type="button" onclick="closeForm()">Close</button>
         </form>
     </div>
