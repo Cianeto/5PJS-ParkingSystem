@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/css/index.css" />
 
     <style>
+
       #attClienteDiv {
         display: none;
         position: fixed;
@@ -20,18 +21,17 @@
         border: 1px solid #888;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
       }
-      /* 
-      
-      body {
+
+      /* body {
         font-family: Arial, sans-serif;
         background-color: #f0f2f5;
         margin: 0;
         padding: 20px;
       }
 
-      
+
       .btn {
-        background-color: #4caf50; 
+        background-color: #4caf50;
         border: none;
         color: white;
         padding: 10px 20px;
@@ -49,7 +49,7 @@
         background-color: #45a049;
       }
 
-      
+
       form {
         background-color: #ffffff;
         padding: 20px;
@@ -85,7 +85,7 @@
         background-color: #45a049;
       }
 
-      
+
       .table-container {
         overflow-x: auto;
       }
@@ -111,24 +111,196 @@
         color: white;
       }
 
-     
+
       #attClienteDiv {
-        width: 50%; 
-        max-width: 600px; 
+        width: 50%;
+        max-width: 600px;
       }
 
-      
+
       @media screen and (max-width: 600px) {
         #attClienteDiv {
           width: 90%;
+        } 
+      }*/
+     /*  body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 20px;
         }
-      } */
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin: 6px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"], button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover, button:hover {
+            background-color: #45a049;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .btn {
+            text-decoration: none;
+            color: white;
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            border-radius: 4px;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        } */
+         body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            margin: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"], input[type="submit"], button {
+            width: 100%;
+            padding: 10px;
+            margin: 6px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"], button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover, button:hover {
+            background-color: #45a049;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .btn {
+            text-decoration: none;
+            color: white;
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            border-radius: 4px;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
     </style>
   </head>
   <body>
     <a class="btn" th:href="@{/}">CLIENTES</a>
     <a class="btn" th:href="@{/lista_vagas_reservas}">VAGAS E RESERVAS</a>
 
+    <br><br>
+
+    <fieldset>
+        <legend>Informações do cliente</legend>
     <form id="clienteForm" method="post">
       <label for="nome">Nome:</label><br />
       <input required type="text" id="nome" name="nome" />
@@ -154,7 +326,8 @@
       <br />
       <button type="submit">Enviar</button>
     </form>
-
+    
+</fieldset>
     <div id="attClienteDiv">
       <form id="attClienteForm">
         <input required type="hidden" id="attClienteId" name="clienteId" />
@@ -223,162 +396,7 @@
         </tbody>
       </table>
     </div>
-    <script>
-      // INSERIR CLIENTE (
-      document
-        .getElementById("clienteForm")
-        .addEventListener("submit", function (e) {
-          e.preventDefault();
-
-          const formData = new FormData(this);
-
-          var cpf = formData.get("cpf");
-
-          if (validarCPF(cpf)) {
-            fetch("/insertCliente", {
-              method: "POST",
-              body: formData,
-            })
-              .then((response) => {
-                console.log(response);
-                window.location.reload();
-              })
-              .catch((error) =>
-                console.error(
-                  "There has been a problem with your fetch operation:",
-                  error
-                )
-              );
-          } else {
-            e.preventDefault();
-            alert("CPF inválido. Verifique o número digitado.");
-            document.getElementById("cpf").focus();
-          }
-        });
-
-      function validarCPF(cpf) {
-        cpf = cpf.replace(/\D+/g, "");
-        if (cpf.length !== 11) return false;
-
-        let soma = 0;
-        let resto;
-        if (/^(\d)\1{10}$/.test(cpf)) return false;
-
-        for (let i = 1; i <= 9; i++)
-          soma += parseInt(cpf.substring(i - 1, i)) * (11 - i);
-        resto = (soma * 10) % 11;
-        if (resto === 10 || resto === 11) resto = 0;
-        if (resto !== parseInt(cpf.substring(9, 10))) return false;
-
-        soma = 0;
-        for (let i = 1; i <= 10; i++)
-          soma += parseInt(cpf.substring(i - 1, i)) * (12 - i);
-        resto = (soma * 10) % 11;
-        if (resto === 10 || resto === 11) resto = 0;
-        if (resto !== parseInt(cpf.substring(10, 11))) return false;
-
-        return true;
-      }
-      // )
-
-      // DELETAR CLIENTE (
-      function deleteCliente(id) {
-        fetch("/deleteCliente/" + id, { method: "DELETE" })
-          .then((response) => {
-            console.log(response);
-            window.location.reload();
-          })
-          .catch((error) =>
-            console.error(
-              "There has been a problem with your fetch operation:",
-              error
-            )
-          );
-      }
-      // )
-
-      // ATUALIZAR CLIENTE (
-      document
-        .getElementById("attClienteForm")
-        .addEventListener("submit", function (e) {
-          e.preventDefault();
-          const formData = new FormData(this);
-          fetch("/updateCliente", {
-            method: "PUT",
-            body: formData,
-          })
-            .then((response) => {
-              console.log(response);
-              window.location.reload();
-            })
-            .catch((error) =>
-              console.error(
-                "There has been a problem with your fetch operation:",
-                error
-              )
-            );
-        });
-      /* document.getElementById('updateClienteForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent the default form submission
-
-            const formData = {
-                clienteId: document.getElementById('attClienteId').value,
-                nome: document.getElementById('attNome').value,
-                cpf: document.getElementById('attCpf').value,
-                telefone: document.getElementById('attTelefone').value,
-            };
-
-            fetch('/your-endpoint-url', {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
-            })
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                }
-                throw new Error('Network response was not ok.');
-            })
-            .catch(error => {
-                console.error('There has been a problem with your fetch operation:', error);
-                // Handle errors
-        });
-    }); */
-
-      function openAndPopulateForm(clienteStr) {
-        const cliente = clienteStr
-          .slice(clienteStr.indexOf("(") + 1, clienteStr.length - 1)
-          .split(", ")
-          .reduce((acc, current) => {
-            const [key, value] = current.split("=");
-            acc[key] = value;
-            return acc;
-          }, {});
-
-        console.log(cliente);
-        console.log(cliente.clienteId);
-
-        document.getElementById("attClienteId").value = cliente.clienteId;
-        document.getElementById("attNome").value = cliente.nome;
-        document.getElementById("attCpf").value = cliente.cpf;
-        document.getElementById("attTelefone").value = cliente.telefone;
-
-        document.getElementById("attClienteDiv").style.display = "block";
-      }
-      /* var btnUpdate = document.getElementById("btnUpdateForm");
-        var formUpdate = document.getElementById("updateClienteForm");
-
-        btnUpdate.onclick = function() {
-            form.style.display = "block";
-        }*/
-
-      function closeForm() {
-        document.getElementById("attClienteDiv").style.display = "none";
-      }
-      // )
-    </script>
-    <!-- <script src="/js/index.js"></script> -->
+      
+    <script src="/js/index.js"></script>
   </body>
 </html>

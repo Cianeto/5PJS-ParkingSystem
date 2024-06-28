@@ -3,13 +3,13 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jun 25, 2024 at 01:32 PM
+-- Generation Time: Jun 28, 2024 at 02:11 AM
 -- Server version: 8.3.0
 -- PHP Version: 8.2.18
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
-SET time_zone = "+00:00";
+SET time_zone = "-03:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -47,15 +47,16 @@ DROP TABLE IF EXISTS `tb_reservas`;
 CREATE TABLE IF NOT EXISTS `tb_reservas` (
   `reserva_id` int NOT NULL AUTO_INCREMENT,
   `horario_entrada` datetime NOT NULL,
-  `horario_saida` datetime NOT NULL,
-  `tarifa` decimal(10,2) NOT NULL,
-  `reserva_status` enum('AGENDADA','EM_ANDAMENTO','PENDENTE','FINALIZADA') NOT NULL,
+  `horario_saida` datetime DEFAULT NULL,
+  `tarifa` decimal(10,2) DEFAULT NULL,
+  `reserva_status` enum('EM_ANDAMENTO','FINALIZADO') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `commentary` varchar(255) DEFAULT NULL,
   `vaga_id` int NOT NULL,
   `veiculo_id` int NOT NULL,
   PRIMARY KEY (`reserva_id`),
   KEY `fk_reserva_vaga` (`vaga_id`),
   KEY `fk_reserva_veiculo` (`veiculo_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -66,9 +67,9 @@ CREATE TABLE IF NOT EXISTS `tb_reservas` (
 DROP TABLE IF EXISTS `tb_vagas`;
 CREATE TABLE IF NOT EXISTS `tb_vagas` (
   `vaga_id` int NOT NULL AUTO_INCREMENT,
-  `vaga_status` enum('LIVRE','OCUPADA') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT 'LIVRE',
+  `vaga_status` enum('LIVRE','OCUPADO') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT 'LIVRE',
   PRIMARY KEY (`vaga_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `tb_vagas`
@@ -95,36 +96,6 @@ INSERT INTO `tb_vagas` (`vaga_id`, `vaga_status`) VALUES
 (18, 'LIVRE'),
 (19, 'LIVRE'),
 (20, 'LIVRE'),
-(21, 'LIVRE'),
-(22, 'LIVRE'),
-(23, 'LIVRE'),
-(24, 'LIVRE'),
-(25, 'LIVRE'),
-(26, 'LIVRE'),
-(27, 'LIVRE'),
-(28, 'LIVRE'),
-(29, 'LIVRE'),
-(30, 'LIVRE'),
-(31, 'LIVRE'),
-(32, 'LIVRE'),
-(33, 'LIVRE'),
-(34, 'LIVRE'),
-(35, 'LIVRE'),
-(36, 'LIVRE'),
-(37, 'LIVRE'),
-(38, 'LIVRE'),
-(39, 'LIVRE'),
-(40, 'LIVRE'),
-(41, 'LIVRE'),
-(42, 'LIVRE'),
-(43, 'LIVRE'),
-(44, 'LIVRE'),
-(45, 'LIVRE'),
-(46, 'LIVRE'),
-(47, 'LIVRE'),
-(48, 'LIVRE'),
-(49, 'LIVRE'),
-(50, 'LIVRE');
 
 -- --------------------------------------------------------
 
@@ -142,7 +113,11 @@ CREATE TABLE IF NOT EXISTS `tb_veiculos` (
   PRIMARY KEY (`veiculo_id`),
   UNIQUE KEY `placa` (`placa`),
   KEY `fk_veiculo_cliente` (`cliente_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Constraints for dumped tables
+--
 
 --
 -- Constraints for table `tb_reservas`

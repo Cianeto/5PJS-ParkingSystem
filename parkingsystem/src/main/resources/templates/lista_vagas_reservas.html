@@ -5,11 +5,78 @@
     <link rel="icon" href="/favicon.png" />
     <meta charset="UTF-8" />
     <title>Parking System</title>
-    <link rel="stylesheet" href="/css/index.css">
-     
+    <link rel="stylesheet" href="/css/index.css" />
+
+    <style>
+      /* Estilos Gerais */
+      body {
+        font-family: "Segoe UI", Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 20px;
+      }
+
+      a.btn {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 15px;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+      }
+
+      a.btn:hover {
+        background-color: #0056b3;
+      }
+
+      /* Tabelas */
+      .table-container {
+        overflow-x: auto;
+        margin-top: 20px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: white;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      th,
+      td {
+        text-align: left;
+        padding: 12px;
+        border-bottom: 1px solid #ddd;
+      }
+
+      th {
+        background-color: #007bff;
+        color: white;
+      }
+
+      tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+
+      tr:hover {
+        background-color: #ddd;
+      }
+
+      /* Responsividade */
+      @media screen and (max-width: 768px) {
+        body {
+          padding: 10px;
+        }
+
+        .btn {
+          display: block;
+          width: 100%;
+          margin-bottom: 10px;
+        }
+      }
+    </style>
   </head>
   <body>
-
     <a class="btn" th:href="@{/}">CLIENTES</a>
     <a class="btn" th:href="@{/lista_vagas_reservas}">VAGAS E RESERVAS</a>
 
@@ -27,7 +94,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr th:each="dto : ${reservas}"  >
+          <tr th:each="dto : ${reservas}">
             <td th:text="${dto.reserva.reservaId}"></td>
             <td th:text="${dto.reserva.horarioEntrada}"></td>
             <td th:text="${dto.reserva.reservaStatus}"></td>

@@ -27,8 +27,6 @@ public class ReservaModel{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer reservaId;
-
-    // MUDAR NOME DE RESERVA PRA TICKET DEPENDENDO
     
     private LocalDateTime horarioEntrada;
     
