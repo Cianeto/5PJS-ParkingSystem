@@ -1,0 +1,78 @@
+#commentDiv {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #f9f9f9;
+  padding: 20px;
+  border: 1px solid #888;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  width: auto; /* Adjust width as needed */
+  max-width: 500px; /* Consistent with previous form styling */
+}
+
+#commentDiv .form-group {
+  display: flex;
+  flex-direction: column; /* Stack label and textarea vertically */
+  margin-bottom: 10px;
+}
+
+#commentDiv .form-group label {
+  margin-bottom: 5px; /* Space between label and textarea */
+}
+
+#commentDiv .form-group textarea {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  height: 100px; /* Adjust height as needed */
+  resize: vertical; /* Allow vertical resizing */
+}
+
+#commentDiv .form-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+#commentDiv button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  margin: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#commentDiv button:hover {
+  background-color: #45a049;
+}
+
+#commentDiv button:nth-child(2) {
+  background-color: #f44336;
+}
+
+#commentDiv button:nth-child(2):hover {
+  background-color: #d32f2f;
+}
+
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+#veiculoForm {
+  flex: 1;
+  margin: 10px;
+  height: 400px;
+}
+
+.veiculolista {
+  flex: 1;
+  margin: 10px;
+  max-height: 400px;
+  overflow-y: auto;
+}

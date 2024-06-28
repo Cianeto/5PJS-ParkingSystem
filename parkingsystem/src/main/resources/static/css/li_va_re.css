@@ -1,0 +1,11 @@
+.tables-container {
+  display: flex;
+  justify-content: space-between; /* This will place the child divs on opposite ends */
+  align-items: start; /* Aligns items at the start of the container */
+  flex-wrap: wrap; /* Allows items to wrap to the next line on smaller screens */
+}
+
+.table-container {
+  width: 49.8%; /* Adjusts the width of each table container to fit side by side */
+  /* Keep other styles of .table-container unchanged */
+}

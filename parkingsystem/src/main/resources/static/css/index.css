@@ -1,56 +1,61 @@
-.btn {
-    display: inline-block;
-    background-color: #007bff;
-    color: white;
-    padding: 8px 12px;
-    text-align: center;
-    text-decoration: none;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-}
-
-
-/*TABELAS*/
-/* .table-container {
-    margin-top: 20px;
-}
-
-.table-container table {
-    width: 100%;
-    border-collapse: collapse;
-    border: 1px solid #ccc;
-}
-
-.table-container th,
-.table-container td {
-    padding: 8px;
-    text-align: left;
-    border: 1px solid #ccc;
-}
-
-.table-container th {
-    background-color: #f2f2f2;
-    color: #333;
-}
-
-.table-container tr:nth-child(even) {
+#attClienteDiv {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     background-color: #f9f9f9;
-}
-
-.table-container tr:hover {
-    background-color: #e9e9e9;
-}
-
-.table-container .btn {
-    padding: 5px 10px;
+    padding: 20px;
+    border: 1px solid #888;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    max-width: 500px; /* Adjusted for a more square-like appearance */
+  }
+  
+  #attClienteForm .form-group {
+    display: flex;
+    align-items: baseline; /* Updated alignment */
+    margin-bottom: 10px;
+  }
+  
+  #attClienteForm .form-group label {
+    flex: 1;
+    margin-right: 10px;
+  }
+  
+  #attClienteForm .form-group input[type="text"] {
+    flex: 2;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  #attClienteForm .form-actions {
+    display: flex;
+    justify-content: center; /* Center the buttons */
+    gap: 30px; /* Adjust the gap between buttons as needed */
+    margin-top: -15px; /* Move the buttons up */
+    margin-bottom: 10px; /* Create space at the bottom */
+  }
+  
+  #attClienteForm input[type="submit"], #attClienteForm button {
     background-color: #4CAF50;
     color: white;
+    padding: 10px 20px;
     border: none;
+    border-radius: 4px;
     cursor: pointer;
-}
-
-.table-container .btn:hover {
+  }
+  
+  #attClienteForm input[type="submit"]:hover, #attClienteForm button:hover {
     background-color: #45a049;
-}
- */
+  }
+  
+  #attClienteForm button {
+    background-color: #f44336;
+  }
+  
+  #attClienteForm button:hover {
+    background-color: #d32f2f;
+  }

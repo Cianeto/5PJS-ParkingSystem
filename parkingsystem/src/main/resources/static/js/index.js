@@ -22,7 +22,6 @@ document.getElementById("clienteForm").addEventListener("submit", function (e) {
         )
       );
   } else {
-    //e.preventDefault();
     alert("CPF inválido. Verifique o número digitado.");
     document.getElementById("cpf").focus();
   }
@@ -90,34 +89,6 @@ document
         )
       );
   });
-/* document.getElementById('updateClienteForm').addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent the default form submission
-
-        const formData = {
-            clienteId: document.getElementById('attClienteId').value,
-            nome: document.getElementById('attNome').value,
-            cpf: document.getElementById('attCpf').value,
-            telefone: document.getElementById('attTelefone').value,
-        };
-
-        fetch('/your-endpoint-url', {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
-        })
-        .then(response => {
-            if (response.ok) {
-                return response.json();
-            }
-            throw new Error('Network response was not ok.');
-        })
-        .catch(error => {
-            console.error('There has been a problem with your fetch operation:', error);
-            // Handle errors
-    });
-}); */
 
 function openAndPopulateForm(clienteStr) {
   const cliente = clienteStr
@@ -129,9 +100,6 @@ function openAndPopulateForm(clienteStr) {
       return acc;
     }, {});
 
-  console.log(cliente);
-  console.log(cliente.clienteId);
-
   document.getElementById("attClienteId").value = cliente.clienteId;
   document.getElementById("attNome").value = cliente.nome;
   document.getElementById("attCpf").value = cliente.cpf;
@@ -139,12 +107,6 @@ function openAndPopulateForm(clienteStr) {
 
   document.getElementById("attClienteDiv").style.display = "block";
 }
-/* var btnUpdate = document.getElementById("btnUpdateForm");
-    var formUpdate = document.getElementById("updateClienteForm");
-
-    btnUpdate.onclick = function() {
-        form.style.display = "block";
-    }*/
 
 function closeForm() {
   document.getElementById("attClienteDiv").style.display = "none";

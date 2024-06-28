@@ -1,0 +1,286 @@
+/* Navigation ( */
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
+
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+}
+
+ul {
+  display: flex;
+  justify-content: center;
+  list-style-type: none;
+}
+
+ul li {
+  margin-left: -2px;
+  &:first-child {
+    a {
+      border-radius: 8px 0 0 8px;
+    }
+  }
+  &:last-child {
+    a {
+      border-radius: 0 8px 8px 0;
+    }
+  }
+}
+
+ul a {
+  background-color: #fff;
+  color: #6b7280;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  font-size: 1.25rem;
+  font-weight: 600;
+  border: 2px solid #d1d5db;
+  height: 3em;
+  padding-left: 1.5em;
+  padding-right: 1.5em;
+  border-radius: 0;
+  transform: skew(-30deg);
+  position: relative;
+  transition: color 0.15s ease, border-color 0.15s ease;
+
+  &:hover,
+  &:focus,
+  &.active {
+    outline: 0;
+    color: #007BFF; /* Adjusted to a more bluish tone */
+    border-color: #007BFF; /* Adjusted to a more bluish tone */
+    z-index: 1;
+  }
+
+  & > * {
+    transform: skew(30deg);
+  }
+
+  span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    svg {
+      margin-right: 0.375em;
+      width: 1.5em;
+      height: 1.5em;
+    }
+  }
+}
+
+/* ) */
+
+/* Forms ( */
+fieldset {
+  border: 2px solid #007BFF; /* Blue border */
+  padding: 10px;
+  border-radius: 5px; /* Rounded corners */
+  margin-bottom: 20px; /* Space below the fieldset */
+}
+
+legend {
+  padding: 0 10px;
+  color: #007BFF; /* Blue text */
+  font-size: 1.2em; /* Slightly larger font size */
+  font-weight: bold;
+}
+
+label {
+  font-weight: bold;
+  margin-top: 10px; /* Space above labels */
+  display: block; /* Ensure labels appear on a new line */
+}
+
+input[type="text"] {
+  width: 100%; /* Full width */
+  padding: 8px;
+  margin-top: 5px; /* Space above inputs */
+  margin-bottom: 20px; /* Space below inputs */
+  box-sizing: border-box; /* Include padding and border in element's width */
+  border: 1px solid #ccc; /* Light grey border */
+  border-radius: 4px; /* Rounded corners */
+}
+
+button[type="submit"] {
+  background-color: #007BFF; /* Blue background */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer;
+  font-size: 1em;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+select {
+  width: 100%; /* Full width to match input fields */
+  padding: 8px; /* Padding for consistency */
+  margin-top: 5px; /* Space above the select */
+  margin-bottom: 20px; /* Space below the select */
+  box-sizing: border-box; /* Include padding and border in the element's width */
+  border: 1px solid #ccc; /* Light grey border to match input fields */
+  border-radius: 4px; /* Rounded corners for consistency */
+  background-color: white; /* Ensure the background is white */
+  cursor: pointer; /* Cursor to pointer to indicate it's selectable */
+}
+
+/* ) */
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #eaeaea;
+  margin: 0;
+  padding: 20px;
+}
+
+form {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding-bottom: 5px;
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  gap: 15px;
+}
+
+h2 {
+  /* text-align: center; */
+  color: #4f46e5; /* Adjusted to a more bluish tone to match the active selection style */
+  margin-bottom: 20px;
+  font-size: 2em; /* Increased font size for better visibility */
+  font-weight: 700; /* Made the font weight bolder */
+}
+
+.table-container {
+  overflow-x: auto; /* Enables horizontal scrolling for smaller screens */
+  background-color: white; /* White background for the container */
+  border: 1px solid #ccc; /* Subtle border around the table */
+  border-radius: 8px; /* Rounded corners for the container */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Soft shadow for depth */
+  padding: 15px; /* Spacing inside the container */
+  padding-top: 19px;
+  padding-bottom: 0px;
+}
+
+table {
+  width: 100%;
+  border-collapse: separate; /* Adjust for rounded corners */
+  border-spacing: 0; /* Remove spacing between cells */
+  margin-bottom: 0px;
+  border-radius: 8px; /* Apply rounded corners to the table */
+  overflow: hidden; /* Ensures the inner elements do not overflow the rounded corners */
+  border: 1px solid #ccc; /* Restored subtle border around the table */
+}
+
+thead {
+  background-color: #007BFF; /* Blue background for the header */
+  color: #ffffff; /* White text color */
+}
+
+th, td {
+  text-align: left;
+  padding: 12px; /* Spacing inside cells */
+  border-bottom: 1px solid #ddd; /* Light grey border for each row */
+}
+
+tbody {
+  border: 1px solid transparent; /* Make tbody border transparent */
+}
+
+tbody tr:nth-child(odd) {
+  background-color: #ffffff; /* Light grey background for odd rows */
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9; /* White background for even rows */
+}
+
+tbody tr:hover {
+  background-color: #eaeaea; /* Light grey background on row hover */
+}
+
+
+.btn {
+  padding: 8px 15px;
+  text-decoration: none; /* Removes underline from links */
+  color: white;
+  background-color: #007BFF; /* Blue background */
+  border: none;
+  border-radius: 4px; /* Rounded corners */
+  cursor: pointer;
+  margin-right: 5px; /* Space between buttons */
+}
+
+.btn:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+.btn:active {
+  transform: scale(0.98); /* Slightly shrink button when clicked */
+}
+
+/* Specific styles for "Deletar" button to make it stand out as a cautionary action */
+.btn-danger {
+  background-color: #dc3545; /* Red background */
+}
+
+.btn-danger:hover {
+  background-color: #c82333; /* Darker red on hover */
+}
+
+form fieldset {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.input-group label {
+  margin-right: 10px;
+  white-space: nowrap; /* Prevents the label from wrapping */
+}
+
+.input-group input {
+  flex-grow: 1; /* Allows the input to grow and fill the available space */
+  margin-right: 20px; /* Adds some space between the input fields */
+}
+
+button[type="submit"] {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+/* Adjust button placement for better alignment and spacing */
+.btn-container {
+  display: flex; /* Use flexbox for better alignment */
+  justify-content: flex-start; /* Align buttons to the start of the container */
+  flex-wrap: wrap; /* Allow buttons to wrap onto the next line if there's not enough space */
+  gap: 10px; /* Create a gap between buttons */
+  margin-top: 20px; /* Add some space above the button container */
+}
+
+.btn, button[type="submit"] {
+  margin: 0;
+}
