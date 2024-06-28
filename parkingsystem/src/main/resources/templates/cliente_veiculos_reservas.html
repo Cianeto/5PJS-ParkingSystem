@@ -48,10 +48,10 @@
                 stroke-linecap="round"
                 stroke-linejoin="round"
                 stroke-width="16"
-              ></path></svg
-            >Clientes</span
-          ></a
-        >
+              ></path></svg>
+              Clientes
+            </span>
+          </a>
       </li>
       <li>
         <a th:href="@{/lista_vagas_reservas}"
@@ -161,10 +161,8 @@
                   transform=" matrix(1 0 0 1 0 0) "
                   stroke-linecap="round"
                 />
-              </g></svg
-            >Reservas em Andamento</span
-          ></a
-        >
+              </g></svg>Reservas em Andamento</span>
+            </a>
       </li>
     </ul>
 
@@ -175,16 +173,16 @@
           <fieldset>
             <legend>Informações do Veículo</legend>
 
-            <label for="modelo">Modelo:</label><br />
+            <label for="modelo">Modelo:</label>
             <input
               required
               type="text"
               id="modelo"
               name="modelo"
               placeholder="Ex: Honda Civic"
-            /><br />
+            />
 
-            <label for="placa">Placa:</label><br />
+            <label for="placa">Placa:</label>
             <input
               required
               type="text"
@@ -192,15 +190,16 @@
               name="placa"
               pattern="[A-Za-z0-9]{7}"
               placeholder="Ex: ABC1234"
+              title="Insira a placa no formato ABC1234"
               oninput="this.value = this.value.toUpperCase()"
-            /><br />
+            />
 
-            <label for="porte">Porte:</label><br />
+            <label for="porte">Porte:</label>
             <select id="porte" name="porte" required>
               <option value="">Selecione o porte</option>
               <option value="Pequeno">Pequeno</option>
-              <option value="Médio">Médio</option></select
-            ><br />
+              <option value="Médio">Médio</option>
+            </select>
 
             <input
               type="hidden"

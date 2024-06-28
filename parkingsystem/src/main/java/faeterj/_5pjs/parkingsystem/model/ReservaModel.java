@@ -23,13 +23,13 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReservaModel{
+public class ReservaModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer reservaId;
-    
+
     private LocalDateTime horarioEntrada;
-    
+
     private LocalDateTime horarioSaida;
 
     private Double tarifa;
@@ -43,7 +43,7 @@ public class ReservaModel{
 
     private Integer veiculoId;
 
-    public ReservaModel(LocalDateTime horarioEntrada, ReservaStatus reservaStatus, Integer vagaId, Integer veiculoId){
+    public ReservaModel(LocalDateTime horarioEntrada, ReservaStatus reservaStatus, Integer vagaId, Integer veiculoId) {
         this.horarioEntrada = horarioEntrada;
         this.reservaStatus = reservaStatus;
         this.vagaId = vagaId;

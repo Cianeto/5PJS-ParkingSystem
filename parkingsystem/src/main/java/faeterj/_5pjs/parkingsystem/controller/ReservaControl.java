@@ -52,7 +52,7 @@ public class ReservaControl {
         return ResponseEntity.status(HttpStatus.CREATED).body("Reserva criada com sucesso. Vaga livre encontrada.");
     }
 
-    @PostMapping("/confirmarPagamento")
+    @PutMapping("/confirmarPagamento")
     public ResponseEntity<?> finalizarReserva(@RequestParam(name = "reservaId") Integer reservaId) {
         Optional<ReservaModel> optReserva = reservaRepo.findById(reservaId);
         if (!optReserva.isPresent()) {

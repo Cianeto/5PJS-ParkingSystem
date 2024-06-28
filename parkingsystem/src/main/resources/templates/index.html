@@ -48,10 +48,9 @@
                 stroke-linecap="round"
                 stroke-linejoin="round"
                 stroke-width="16"
-              ></path></svg
-            >Clientes</span
-          ></a
-        >
+              ></path>
+            </svg>Clientes</span>
+          </a>
       </li>
       <li>
         <a th:href="@{/lista_vagas_reservas}"
@@ -161,10 +160,9 @@
                   transform=" matrix(1 0 0 1 0 0) "
                   stroke-linecap="round"
                 />
-              </g></svg
-            >Reservas em Andamento</span
-          ></a
-        >
+              </g></svg>Reservas em Andamento
+              </span
+          ></a>
       </li>
     </ul>
 
@@ -172,10 +170,10 @@
       <fieldset>
         <legend>Informações do Cliente</legend>
 
-        <label for="nome">Nome:</label><br />
+        <label for="nome">Nome:</label>
         <input required type="text" id="nome" name="nome" />
-        <br />
-        <label for="cpf">CPF:</label><br />
+        
+        <label for="cpf">CPF:</label>
         <input
           required
           type="text"
@@ -183,8 +181,8 @@
           name="cpf"
           title="CPF deve ser escrito no formato 111.111.111-11"
         />
-        <br />
-        <label for="telefone" id="telefone">Telefone:</label><br />
+       
+        <label for="telefone" id="telefone">Telefone:</label>
         <input
           required
           type="text"
@@ -193,12 +191,12 @@
           pattern="\(\d{2}\)\d{5}-\d{4}"
           title="Telefone deve ser escrito no formato (99)99999-9999"
         />
-        <br />
+        
         <button type="submit">Enviar</button>
       </fieldset>
     </form>
 
-    <br />
+  </br>
 
     <div class="table-container">
       <fieldset>

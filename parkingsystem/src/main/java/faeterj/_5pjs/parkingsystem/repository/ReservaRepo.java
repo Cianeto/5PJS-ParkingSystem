@@ -18,4 +18,6 @@ public interface ReservaRepo extends JpaRepository<ReservaModel, Integer>{
 
     List<ReservaModel> findByVeiculoIdAndReservaStatus(Integer veiculoId, ReservaStatus reservaStatus);
 
+    Optional<ReservaModel> findFirstByVeiculoIdAndReservaStatus(Integer veiculoId, ReservaStatus reservaStatus);
+
 }

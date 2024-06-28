@@ -71,7 +71,7 @@ function finalizar(reservaStr) {
     return;
   }
   fetch("/confirmarPagamento?reservaId=" + reserva.reservaId, {
-    method: "POST",
+    method: "PUT",
   })
     .then((response) => {
       if (response.ok) {

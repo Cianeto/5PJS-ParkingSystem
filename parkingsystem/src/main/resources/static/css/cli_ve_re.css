@@ -67,7 +67,7 @@
 #veiculoForm {
   flex: 1;
   margin: 10px;
-  height: 400px;
+
   display: flex;
   flex-direction: column;
   justify-content: space-between;
