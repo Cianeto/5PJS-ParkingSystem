@@ -7,4 +7,3 @@ Being developed by: [Gabriel Melo](https://github.com/Cianeto) and [Kauã Sousa]
 ### ⌛ Funcionalidades completas, agora estamos estilizando...
 
 - [ ] Impedir cliente de ser deletado caso haja reservas em andamento
-- [ ] 
