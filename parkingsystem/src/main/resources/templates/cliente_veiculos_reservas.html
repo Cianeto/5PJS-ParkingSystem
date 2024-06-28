@@ -169,83 +169,145 @@
     </ul>
 
     <h1>Cliente: <span th:text="${cliente.nome}"></span></h1>
+    <div class="main-container">
+      <div class="flex-container">
+        <form id="veiculoForm" method="post">
+          <fieldset>
+            <legend>Informações do Veículo</legend>
 
-    <div class="flex-container">
-      <form id="veiculoForm" method="post">
+            <label for="modelo">Modelo:</label><br />
+            <input
+              required
+              type="text"
+              id="modelo"
+              name="modelo"
+              placeholder="Ex: Honda Civic"
+            /><br />
+
+            <label for="placa">Placa:</label><br />
+            <input
+              required
+              type="text"
+              id="placa"
+              name="placa"
+              pattern="[A-Za-z0-9]{7}"
+              placeholder="Ex: ABC1234"
+              oninput="this.value = this.value.toUpperCase()"
+            /><br />
+
+            <label for="porte">Porte:</label><br />
+            <select id="porte" name="porte" required>
+              <option value="">Selecione o porte</option>
+              <option value="Pequeno">Pequeno</option>
+              <option value="Médio">Médio</option></select
+            ><br />
+
+            <input
+              type="hidden"
+              name="clienteId"
+              th:value="${cliente.clienteId}"
+            />
+
+            <button type="submit" class="btn-submit">
+              Cadastrar novo veículo
+            </button>
+          </fieldset>
+        </form>
+
+        <div class="table-container veiculolista">
+          <fieldset>
+            <legend>Lista de Veículos</legend>
+            <table>
+              <thead>
+                <tr>
+                  <th>Veiculo ID</th>
+                  <th>Modelo</th>
+                  <th>Placa</th>
+                  <th>Porte</th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="veiculo : ${veiculos}">
+                  <td th:text="${veiculo.veiculoId}"></td>
+                  <td th:text="${veiculo.modelo}"></td>
+                  <td th:text="${veiculo.placa}"></td>
+                  <td th:text="${veiculo.porte}"></td>
+                  <td>
+                    <button
+                      class="btn"
+                      th:onclick="'reservar(\'' + ${veiculo.veiculoId} + '\')'"
+                    >
+                      RESERVAR
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      class="btn btn-danger"
+                      th:onclick="'deleteVeiculo(' + ${veiculo.veiculoId} + ');'"
+                    >
+                      DELETAR
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </fieldset>
+        </div>
+      </div>
+
+      <div class="table-container">
         <fieldset>
-          <legend>Informações do Veículo</legend>
-
-          <label for="modelo">Modelo:</label><br />
-          <input
-            required
-            type="text"
-            id="modelo"
-            name="modelo"
-            placeholder="Ex: Honda Civic"
-          /><br />
-
-          <label for="placa">Placa:</label><br />
-          <input
-            required
-            type="text"
-            id="placa"
-            name="placa"
-            pattern="[A-Za-z0-9]{7}"
-            placeholder="Ex: ABC1234"
-            oninput="this.value = this.value.toUpperCase()"
-          /><br />
-
-          <label for="porte">Porte:</label><br />
-          <select id="porte" name="porte" required>
-            <option value="">Selecione o porte</option>
-            <option value="Pequeno">Pequeno</option>
-            <option value="Médio">Médio</option></select
-          ><br />
-
-          <input
-            type="hidden"
-            name="clienteId"
-            th:value="${cliente.clienteId}"
-          />
-
-          <button type="submit" class="btn-submit">
-            Cadastrar novo veículo
-          </button>
-        </fieldset>
-      </form>
-
-      <div class="table-container veiculolista">
-        <fieldset>
-          <legend>Lista de Veículos</legend>
+          <legend>Lista de Reservas</legend>
           <table>
             <thead>
               <tr>
-                <th>Veiculo ID</th>
-                <th>Modelo</th>
+                <th>ReservaID</th>
+                <th>Horário de Entrada</th>
+                <th>Horário de Saída</th>
+                <th>Tarifa</th>
+                <th>Status</th>
+                <th>Comentário</th>
                 <th>Placa</th>
-                <th>Porte</th>
+                <th>Vaga ID</th>
+                <th>Veículo ID</th>
+                <th></th>
                 <th></th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
-              <tr th:each="veiculo : ${veiculos}">
-                <td th:text="${veiculo.veiculoId}"></td>
-                <td th:text="${veiculo.modelo}"></td>
-                <td th:text="${veiculo.placa}"></td>
-                <td th:text="${veiculo.porte}"></td>
+              <tr th:each="dto : ${reservas}">
+                <td th:text="${dto.reserva.reservaId}"></td>
+                <td th:text="${dto.reserva.horarioEntrada}"></td>
+                <td th:text="${dto.reserva.horarioSaida}"></td>
+                <td th:text="${dto.reserva.tarifa}"></td>
+                <td id="status" th:text="${dto.reserva.reservaStatus}"></td>
+                <td class="comentario" th:text="${dto.reserva.commentary}"></td>
+                <td th:text="${dto.placa}"></td>
+                <td th:text="${dto.reserva.vagaId}"></td>
+                <td th:text="${dto.reserva.veiculoId}"></td>
                 <td>
                   <button
                     class="btn"
-                    th:onclick="'reservar(\'' + ${veiculo.veiculoId} + '\')'"
+                    th:attr="onclick='finalizar(\'' + ${dto.reserva} + '\')'"
                   >
-                    RESERVAR
+                    FINALIZAR
+                  </button>
+                </td>
+                <td>
+                  <button
+                    class="btn"
+                    th:onclick="'showCommentForm(' + ${dto.reserva.reservaId} + ')'"
+                  >
+                    COMENTAR
                   </button>
                 </td>
                 <td>
                   <button
                     class="btn btn-danger"
-                    th:onclick="'deleteVeiculo(' + ${veiculo.veiculoId} + ');'"
+                    th:onclick="'deleteReserva(' + ${dto.reserva.reservaId} + ')'"
                   >
                     DELETAR
                   </button>
@@ -256,68 +318,6 @@
         </fieldset>
       </div>
     </div>
-    
-    <div class="table-container">
-      <fieldset>
-        <legend>Lista de Reservas</legend>
-        <table>
-          <thead>
-            <tr>
-              <th>ReservaID</th>
-              <th>Horário de Entrada</th>
-              <th>Horário de Saída</th>
-              <th>Tarifa</th>
-              <th>Status</th>
-              <th>Comentário</th>
-              <th>Placa</th>
-              <th>Vaga ID</th>
-              <th>Veículo ID</th>
-              <th></th>
-              <th></th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr th:each="dto : ${reservas}">
-              <td th:text="${dto.reserva.reservaId}"></td>
-              <td th:text="${dto.reserva.horarioEntrada}"></td>
-              <td th:text="${dto.reserva.horarioSaida}"></td>
-              <td th:text="${dto.reserva.tarifa}"></td>
-              <td id="status" th:text="${dto.reserva.reservaStatus}"></td>
-              <td class="comentario" th:text="${dto.reserva.commentary}"></td>
-              <td th:text="${dto.placa}"></td>
-              <td th:text="${dto.reserva.vagaId}"></td>
-              <td th:text="${dto.reserva.veiculoId}"></td>
-              <td>
-                <button
-                  class="btn"
-                  th:attr="onclick='finalizar(\'' + ${dto.reserva} + '\')'"
-                >
-                  FINALIZAR
-                </button>
-              </td>
-              <td>
-                <button
-                  class="btn"
-                  th:onclick="'showCommentForm(' + ${dto.reserva.reservaId} + ')'"
-                >
-                  COMENTAR
-                </button>
-              </td>
-              <td>
-                <button
-                  class="btn btn-danger"
-                  th:onclick="'deleteReserva(' + ${dto.reserva.reservaId} + ')'"
-                >
-                  DELETAR
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </fieldset>
-    </div>
-
     <div id="commentDiv">
       <form>
         <div class="form-group">
