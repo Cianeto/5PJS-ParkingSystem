@@ -221,7 +221,7 @@
               <td th:text="${cliente.nome}"></td>
               <td th:text="${cliente.cpf}"></td>
               <td th:text="${cliente.telefone}"></td>
-              <td style="text-align: right;">
+              <td style="text-align: right">
                 <button
                   class="btn"
                   th:attr="onclick=|location.href='@{/cliente_veiculos_reservas(clienteId=${cliente.clienteId})}'|"
@@ -229,7 +229,7 @@
                   ACESSAR
                 </button>
               </td>
-              <td style="text-align: center;">
+              <td style="text-align: center">
                 <button
                   class="btn"
                   th:attr="onclick='openAndPopulateForm(\'' + ${cliente} + '\')'"

@@ -10,12 +10,12 @@
     border: 1px solid #888;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     border-radius: 5px;
-    max-width: 500px; /* Adjusted for a more square-like appearance */
+    max-width: 500px;
   }
   
   #attClienteForm .form-group {
     display: flex;
-    align-items: baseline; /* Updated alignment */
+    align-items: baseline;
     margin-bottom: 10px;
   }
   
@@ -33,10 +33,10 @@
   
   #attClienteForm .form-actions {
     display: flex;
-    justify-content: center; /* Center the buttons */
-    gap: 30px; /* Adjust the gap between buttons as needed */
-    margin-top: -15px; /* Move the buttons up */
-    margin-bottom: 10px; /* Create space at the bottom */
+    justify-content: center;
+    gap: 30px;
+    margin-top: -15px;
+    margin-bottom: 10px;
   }
   
   #attClienteForm input[type="submit"], #attClienteForm button {
