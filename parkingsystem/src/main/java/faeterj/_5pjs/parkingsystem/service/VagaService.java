@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,7 +17,10 @@ public class VagaService {
     @Autowired
     VagaRepo vagaRepo;
 
-    // VAGA (
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    // ENCONTRAR PRIMEIRA VAGA LIVRE (
     @Transactional
     public Integer verificarPrimeiraVagaLivre(){
         Pageable firstResult = PageRequest.of(0, 1);
@@ -31,4 +35,10 @@ public class VagaService {
         }
     }
     // )
+
+    public void liberarVaga(Integer vagaId){
+        String query = "UPDATE tb_vagas SET vaga_status = 'LIVRE' WHERE vaga_id = ?;";
+        jdbcTemplate.update(query, vagaId);
+    }
+
 }

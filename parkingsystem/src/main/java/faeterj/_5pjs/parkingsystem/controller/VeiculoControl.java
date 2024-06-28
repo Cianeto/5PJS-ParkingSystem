@@ -14,14 +14,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import faeterj._5pjs.parkingsystem.dto.ReservaDTO;
 import faeterj._5pjs.parkingsystem.model.ReservaModel;
 import faeterj._5pjs.parkingsystem.model.VeiculoModel;
 import faeterj._5pjs.parkingsystem.repository.ClienteRepo;
 import faeterj._5pjs.parkingsystem.repository.ReservaRepo;
 import faeterj._5pjs.parkingsystem.repository.VeiculoRepo;
-import faeterj.dto.ReservaDTO;
 
 @Controller
 public class VeiculoControl {
@@ -36,8 +37,8 @@ public class VeiculoControl {
     private ReservaRepo reservaRepo;
 
     // LISTAR TODOS VEICULOS DO CLIENTE ACESSADO (
-    @GetMapping("/veiculoPage")
-    public String veiculoPage(@RequestParam(name = "clienteId") String clienteId, Model model) {
+    @GetMapping("/cliente_veiculos_reservas")
+    public String cliente_veiculos_reservas(@RequestParam(name = "clienteId") String clienteId, Model model) {
         Integer cliente_id = Integer.parseInt(clienteId);
         model.addAttribute("cliente", clienteRepo.findById(cliente_id).get());
         model.addAttribute("veiculos", veiculoRepo.findByClienteId(cliente_id));
@@ -46,7 +47,7 @@ public class VeiculoControl {
         List<VeiculoModel> veiculos = veiculoRepo.findByClienteId(cliente_id);
 
         for(VeiculoModel veiculo : veiculos) {
-            List<ReservaModel> reservas = reservaRepo.findByVeiculoId(veiculo.getVeiculo_id());
+            List<ReservaModel> reservas = reservaRepo.findByVeiculoId(veiculo.getVeiculoId());
             for (ReservaModel reserva : reservas) {
                 ReservaDTO dto = new ReservaDTO(reserva, veiculo.getPlaca());
                 reservaDTOs.add(dto);
@@ -54,7 +55,7 @@ public class VeiculoControl {
         }
         model.addAttribute("reservas", reservaDTOs);
 
-        return "veiculoPage";
+        return "cliente_veiculos_reservas";
     }
     // )
 
@@ -83,4 +84,5 @@ public class VeiculoControl {
         }
     }
     // )
+
 }

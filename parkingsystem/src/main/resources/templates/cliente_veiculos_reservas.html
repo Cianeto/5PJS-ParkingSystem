@@ -6,8 +6,33 @@
     <meta charset="UTF-8" />
     <title>Parking System</title>
     <link rel="stylesheet" href="/css/index.css" />
+
+    <style>
+      #commentDiv {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #f9f9f9;
+        padding: 20px;
+        border: 1px solid #888;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+      }
+
+      .comentario {
+        max-width: 200px; /* Adjust based on your layout */
+        word-wrap: break-word;
+      }
+
+    </style>
   </head>
   <body>
+
+    <a class="btn" th:href="@{/}">CLIENTES</a>
+    <a class="btn" th:href="@{/lista_vagas_reservas}">VAGAS E RESERVAS</a>
+
     <h1>Cliente: <span th:text="${cliente.nome}"></span></h1>
 
     <form id="veiculoForm" method="post">
@@ -60,17 +85,21 @@
         </thead>
         <tbody>
           <tr th:each="veiculo : ${veiculos}">
-            <td th:text="${veiculo.veiculo_id}"></td>
+            <td th:text="${veiculo.veiculoId}"></td>
             <td th:text="${veiculo.modelo}"></td>
             <td th:text="${veiculo.placa}"></td>
             <td th:text="${veiculo.porte}"></td>
             <td>
-              <a class="btn" th:attr="onclick='reservar(\'' + ${veiculo.veiculo_id} + '\')'">Reservar</a>
+              <a
+                class="btn"
+                th:attr="onclick='reservar(\'' + ${veiculo.veiculoId} + '\')'"
+                >Reservar</a
+              >
             </td>
             <td>
               <button
                 class="btn"
-                th:onclick="'deleteVeiculo(' + ${veiculo.veiculo_id} + ');'"
+                th:onclick="'deleteVeiculo(' + ${veiculo.veiculoId} + ');'"
               >
                 Delete
               </button>
@@ -91,34 +120,59 @@
             <th>Status</th>
             <th>Comentário</th>
             <th>Placa</th>
+            <th>Vaga ID</th>
             <th>Veículo ID</th>
-            <th>Finalizar</th>
-            <th>Problema</th>
+            <th></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
-          <tr th:each="dto : ${reservas}"  >
+          <tr th:each="dto : ${reservas}">
             <td th:text="${dto.reserva.reservaId}"></td>
             <td th:text="${dto.reserva.horarioEntrada}"></td>
             <td th:text="${dto.reserva.horarioSaida}"></td>
             <td th:text="${dto.reserva.tarifa}"></td>
             <td id="status" th:text="${dto.reserva.reservaStatus}"></td>
-            <td th:text="${dto.reserva.commentary}"></td>
+            <td class="comentario" th:text="${dto.reserva.commentary}"></td>
             <td th:text="${dto.placa}"></td>
+            <td th:text="${dto.reserva.vagaId}"></td>
             <td th:text="${dto.reserva.veiculoId}"></td>
-            <td> <!-- POSSUIMOS 3 OPCOES: COLOCAR A MODEL NAS MODELS -->
+            <td>
               <button
                 class="btn"
-                
                 th:attr="onclick='finalizar(\'' + ${dto.reserva} + '\')'"
               >
-              <!-- th:onclick="'finalizar(' + ${dto.reserva.reservaId} + ')'" -->
-                Finalizar
+                FINALIZAR
+              </button>
+            </td>
+            <td>
+              <button
+                class="btn"
+                th:onclick="'showCommentForm(' + ${dto.reserva.reservaId} + ')'"
+              >
+                COMENTAR
+              </button>
+            </td>
+            <td>
+              <button
+                class="btn"
+                th:onclick="'deleteReserva(' + ${dto.reserva.reservaId} + ')'"
+              >
+                DELETAR
               </button>
             </td>
           </tr>
         </tbody>
       </table>
+    </div>
+
+    <div id="commentDiv">
+      <form>
+        <label for="comment">Comentário:</label>
+        <textarea id="comment" name="comment"></textarea>
+        <button type="button" onclick="submitComment()">Enviar</button>
+        <button type="button" onclick="closeForm()">Close</button>
+      </form>
     </div>
 
     <script>
@@ -174,33 +228,75 @@
 
       // FINALIZAR RESERVA (
       function finalizar(reservaStr) {
-        console.log(reservaStr)
-        const reserva = reservaStr.slice(reservaStr.indexOf('(') + 1, reservaStr.length - 1)
-            .split(', ')
-            .reduce((acc, current) => {
-                const [key, value] = current.split('=');
-                acc[key] = value;
-                return acc;
-            }, {});
-        console.log(reserva)
+        const reserva = reservaStr
+          .slice(reservaStr.indexOf("(") + 1, reservaStr.length - 1)
+          .split(", ")
+          .reduce((acc, current) => {
+            const [key, value] = current.split("=");
+            acc[key] = value;
+            return acc;
+          }, {});
         var status = reserva.reservaStatus;
-        console.log(status)
-        if(status == 'FINALIZADO'){
-            return;
+        console.log(status);
+        if (status == "FINALIZADO") {
+          return;
         }
-        console.log("reserva id" + reserva.reservaId)
-        fetch("/confirmarPagamento?reservaId=" + reserva.reservaId, { method: "POST" })
+        fetch("/confirmarPagamento?reservaId=" + reserva.reservaId, {
+          method: "POST",
+        })
           .then((response) => {
             if (response.ok) {
               console.log("Reserva finalizada com sucesso.");
               window.location.reload();
             } else {
-              console.error("Erro ao finalizar reserva:", response.statusText);
+              console.error("Erro ao finalizar reserva.");
             }
           })
           .catch((error) =>
             console.error("Houve um problema com a operação fetch:", error)
           );
+      }
+      // )
+
+      // ADICIONAR COMENTARIO (
+      function showCommentForm(reservaId) {
+        // Exibe o formulário
+        document.getElementById("commentDiv").style.display = "block";
+        // Armazena o reservaId para uso posterior
+        document.getElementById("commentDiv").dataset.reservaId = reservaId;
+      }
+
+      function closeForm() {
+        document.getElementById("commentDiv").style.display = "none";
+      }
+
+      function submitComment() {
+        const comment = document.getElementById("comment").value;
+        const reservaId =
+          document.getElementById("commentDiv").dataset.reservaId;
+
+        fetch(`/veiculo/${reservaId}/${comment}`, {
+          method: "PUT",
+        })
+          .then((response) => {
+            if (response.ok) {
+              //alert("Comentário adicionado com sucesso!");
+              document.getElementById("commentDiv").style.display = "none";
+              window.location.reload();
+            } else {
+              alert("Erro ao adicionar comentário.");
+            }
+          })
+          .catch((error) => console.error("Erro:", error));
+      }
+      // )
+
+      // DELETAR RESERVA (
+      function deleteReserva(id){
+        fetch("/deleteReserva/" + id, { method: "DELETE" }).then((response) => {
+          console.log(response);
+          window.location.reload();
+        });
       }
       // )
     </script>

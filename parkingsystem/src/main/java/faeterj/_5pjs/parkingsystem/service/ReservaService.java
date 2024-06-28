@@ -19,8 +19,7 @@ public class ReservaService {
     @Autowired
     VagaRepo vagaRepo;
     @Autowired
-    private JdbcTemplate jdbcTemplate;
-    
+    VagaService vagaServ;
     // TARIFA (
     public Double calcularTarifa(LocalDateTime horaEntrada, LocalDateTime horaSaida) {
         double tarifaPorHora = 10.00; // R$ 10,00
@@ -45,10 +44,7 @@ public class ReservaService {
         reserva.setReservaStatus(ReservaStatus.FINALIZADO);
         reservaRepo.save(reserva);
         
-        String query = "UPDATE tb_vagas SET vaga_status = 'LIVRE' WHERE vaga_id = ?;";
-        
-        jdbcTemplate.update(query, reserva.getVagaId());
-        
+        vagaServ.liberarVaga(reserva.getVagaId());
     }
     // )
 }   

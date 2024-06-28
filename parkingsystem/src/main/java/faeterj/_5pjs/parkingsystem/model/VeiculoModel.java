@@ -23,7 +23,7 @@ import lombok.ToString;
 public class VeiculoModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer veiculo_id;
+    private Integer veiculoId;
 
     private String modelo;
 

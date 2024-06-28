@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" />
+    <meta charset="UTF-8" />
+    <title>Parking System</title>
+    <link rel="stylesheet" href="/css/index.css">
+     
+  </head>
+  <body>
+
+    <a class="btn" th:href="@{/}">CLIENTES</a>
+    <a class="btn" th:href="@{/lista_vagas_reservas}">VAGAS E RESERVAS</a>
+
+    <!-- TABELA DE RESERVAS-->
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>ReservaID</th>
+            <th>Horário de Entrada</th>
+            <th>Status</th>
+            <th>Placa</th>
+            <th>Vaga ID</th>
+            <th>Veículo ID</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="dto : ${reservas}"  >
+            <td th:text="${dto.reserva.reservaId}"></td>
+            <td th:text="${dto.reserva.horarioEntrada}"></td>
+            <td th:text="${dto.reserva.reservaStatus}"></td>
+            <td th:text="${dto.placa}"></td>
+            <td th:text="${dto.reserva.vagaId}"></td>
+            <td th:text="${dto.reserva.veiculoId}"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- TABELA DE VAGAS-->
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>VAGA ID</th>
+            <th>STATUS</th>
+            <th>CLIENTE NOME</th>
+            <th>VEICULO MODELO</th>
+            <th>VEICULO PLACA</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="dto : ${vagas}">
+            <td th:text="${dto.vaga.vagaId}"></td>
+            <td th:text="${dto.vaga.vagaStatus}"></td>
+            <td th:text="${dto.cliente.nome}"></td>
+            <td th:text="${dto.veiculo.modelo}"></td>
+            <td th:text="${dto.veiculo.placa}"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- <script src="/js/"></script> -->
+  </body>
+</html>
